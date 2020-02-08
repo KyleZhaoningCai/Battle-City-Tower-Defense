@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6F05D67F23EEF915007B3F3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05D67E23EEF915007B3F3E /* AppDelegate.swift */; };
+		6F05D68123EEF915007B3F3E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68023EEF915007B3F3E /* GameScene.sks */; };
+		6F05D68323EEF915007B3F3E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68223EEF915007B3F3E /* Actions.sks */; };
+		6F05D68523EEF915007B3F3E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05D68423EEF915007B3F3E /* GameScene.swift */; };
+		6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F05D68623EEF915007B3F3E /* GameViewController.swift */; };
+		6F05D68A23EEF915007B3F3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68823EEF915007B3F3E /* Main.storyboard */; };
+		6F05D68C23EEF91A007B3F3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68B23EEF91A007B3F3E /* Assets.xcassets */; };
+		6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6F05D67B23EEF915007B3F3E /* Battle City Tower Defense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Battle City Tower Defense.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F05D67E23EEF915007B3F3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6F05D68023EEF915007B3F3E /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		6F05D68223EEF915007B3F3E /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		6F05D68423EEF915007B3F3E /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		6F05D68623EEF915007B3F3E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		6F05D68923EEF915007B3F3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6F05D68B23EEF91A007B3F3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6F05D68E23EEF91A007B3F3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6F05D69023EEF91A007B3F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F05D67823EEF915007B3F3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6F05D67223EEF914007B3F3E = {
+			isa = PBXGroup;
+			children = (
+				6F05D67D23EEF915007B3F3E /* Battle City Tower Defense */,
+				6F05D67C23EEF915007B3F3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6F05D67C23EEF915007B3F3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F05D67B23EEF915007B3F3E /* Battle City Tower Defense.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6F05D67D23EEF915007B3F3E /* Battle City Tower Defense */ = {
+			isa = PBXGroup;
+			children = (
+				6F05D67E23EEF915007B3F3E /* AppDelegate.swift */,
+				6F05D68023EEF915007B3F3E /* GameScene.sks */,
+				6F05D68223EEF915007B3F3E /* Actions.sks */,
+				6F05D68423EEF915007B3F3E /* GameScene.swift */,
+				6F05D68623EEF915007B3F3E /* GameViewController.swift */,
+				6F05D68823EEF915007B3F3E /* Main.storyboard */,
+				6F05D68B23EEF91A007B3F3E /* Assets.xcassets */,
+				6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */,
+				6F05D69023EEF91A007B3F3E /* Info.plist */,
+			);
+			path = "Battle City Tower Defense";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6F05D67A23EEF915007B3F3E /* Battle City Tower Defense */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F05D69323EEF91A007B3F3E /* Build configuration list for PBXNativeTarget "Battle City Tower Defense" */;
+			buildPhases = (
+				6F05D67723EEF915007B3F3E /* Sources */,
+				6F05D67823EEF915007B3F3E /* Frameworks */,
+				6F05D67923EEF915007B3F3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Battle City Tower Defense";
+			productName = "Battle City Tower Defense";
+			productReference = 6F05D67B23EEF915007B3F3E /* Battle City Tower Defense.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6F05D67323EEF915007B3F3E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1030;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = CentennialCollege;
+				TargetAttributes = {
+					6F05D67A23EEF915007B3F3E = {
+						CreatedOnToolsVersion = 10.3;
+					};
+				};
+			};
+			buildConfigurationList = 6F05D67623EEF915007B3F3E /* Build configuration list for PBXProject "Battle City Tower Defense" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6F05D67223EEF914007B3F3E;
+			productRefGroup = 6F05D67C23EEF915007B3F3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6F05D67A23EEF915007B3F3E /* Battle City Tower Defense */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6F05D67923EEF915007B3F3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F05D68A23EEF915007B3F3E /* Main.storyboard in Resources */,
+				6F05D68123EEF915007B3F3E /* GameScene.sks in Resources */,
+				6F05D68C23EEF91A007B3F3E /* Assets.xcassets in Resources */,
+				6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */,
+				6F05D68323EEF915007B3F3E /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6F05D67723EEF915007B3F3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F05D68523EEF915007B3F3E /* GameScene.swift in Sources */,
+				6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */,
+				6F05D67F23EEF915007B3F3E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6F05D68823EEF915007B3F3E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F05D68923EEF915007B3F3E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6F05D68E23EEF91A007B3F3E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6F05D69123EEF91A007B3F3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6F05D69223EEF91A007B3F3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6F05D69423EEF91A007B3F3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BULHRS882;
+				INFOPLIST_FILE = "Battle City Tower Defense/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centennialcollege.Battle-City-Tower-Defense";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6F05D69523EEF91A007B3F3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2BULHRS882;
+				INFOPLIST_FILE = "Battle City Tower Defense/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centennialcollege.Battle-City-Tower-Defense";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6F05D67623EEF915007B3F3E /* Build configuration list for PBXProject "Battle City Tower Defense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F05D69123EEF91A007B3F3E /* Debug */,
+				6F05D69223EEF91A007B3F3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F05D69323EEF91A007B3F3E /* Build configuration list for PBXNativeTarget "Battle City Tower Defense" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F05D69423EEF91A007B3F3E /* Debug */,
+				6F05D69523EEF91A007B3F3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6F05D67323EEF915007B3F3E /* Project object */;
+}
