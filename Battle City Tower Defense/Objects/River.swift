@@ -1,13 +1,16 @@
 import SpriteKit
 import GameplayKit
 
-class Island: GameObject
+class River: GameObject
 {
+    
+    var objectPosition: CGPoint?
 
     //constructor
     init(positionX: CGFloat, positionY: CGFloat)
     {
-        super.init(imageString: "river", initialScale: 2.0)
+        super.init(imageString: "river", initialScale: 3.1)
+        self.objectPosition = CGPoint(x: positionX, y: positionY)
         Start()
     }
     
@@ -16,26 +19,14 @@ class Island: GameObject
         fatalError("init(coder:) has not been implemented")
     }
     
-    // Life Cycle Functions
-    override func CheckBounds()
-    {
-
-    }
-    
     func Move()
     {
         
     }
     
-    override func Reset()
+    override func Start()
     {
-
-    }
-    
-    override func Start(positionX: CGFloat, positionY: CGFloat)
-    {
-        self.position.y = positionY;
-        self.position.x = positionX;
+        self.position = objectPosition ?? CGPoint(x: 1000, y: 1000)
     }
     
     override func Update()
