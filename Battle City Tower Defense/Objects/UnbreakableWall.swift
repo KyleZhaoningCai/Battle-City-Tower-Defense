@@ -1,15 +1,15 @@
 import SpriteKit
 import GameplayKit
 
-class River: GameObject
+class UnbreakableWall: GameObject
 {
     
     var objectPosition: CGPoint?
-
+    
     //constructor
     init(positionX: CGFloat, positionY: CGFloat)
     {
-        super.init(imageString: "river-2", initialScale: 3.1)
+        super.init(imageString: "SilverWall", initialScale: 3.1)
         self.objectPosition = CGPoint(x: positionX, y: positionY)
         Start()
     }
@@ -31,6 +31,6 @@ class River: GameObject
     
     override func Update()
     {
-
+        
     }
 }
