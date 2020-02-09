@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-struct Enemy: Codable {
+struct EnemyStruct: Codable {
     var name: String
     var sprite: String
     var health: Int
