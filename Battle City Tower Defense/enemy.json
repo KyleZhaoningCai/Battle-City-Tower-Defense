@@ -1,0 +1,58 @@
+[
+    {
+        "name": "enemy1",
+        "sprite": "",
+        "health": 20,
+        "speed": 300,
+        "attack": 10
+    },
+    {
+        "name": "enemy2",
+        "sprite": "",
+        "health": 20,
+        "speed": 500,
+        "attack": 10
+    },
+    {
+        "name": "enemy3",
+        "sprite": "",
+        "health": 50,
+        "speed": 300,
+        "attack": 20
+    },
+    {
+        "name": "enemy4",
+        "sprite": "",
+        "health": 40,
+        "speed": 500,
+        "attack": 20
+    },
+    {
+        "name": "enemy5",
+        "sprite": "",
+        "health": 100,
+        "speed": 200,
+        "attack": 30
+    },
+    {
+        "name": "enemy6",
+        "sprite": "",
+        "health": 40,
+        "speed": 700,
+        "attack": 30
+    },
+    {
+        "name": "enemy7",
+        "sprite": "",
+        "health": 60,
+        "speed": 500,
+        "attack": 40
+    },
+    {
+        "name": "boss",
+        "sprite": "",
+        "health": 5000,
+        "speed": 200,
+        "attack": 100
+    }
+]
