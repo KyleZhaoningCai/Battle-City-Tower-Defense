@@ -15,6 +15,8 @@
 		6F05D68A23EEF915007B3F3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68823EEF915007B3F3E /* Main.storyboard */; };
 		6F05D68C23EEF91A007B3F3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68B23EEF91A007B3F3E /* Assets.xcassets */; };
 		6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */; };
+		6F18776123F0750400525AA8 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776023F0750400525AA8 /* GameProtocol.swift */; };
+		6F18776323F0753000525AA8 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776223F0753000525AA8 /* GameObject.swift */; };
 		6F31299423EF947C00DF4312 /* enemy.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F31299323EF947C00DF4312 /* enemy.json */; };
 		6F31299623EF965C00DF4312 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F31299523EF965C00DF4312 /* Enemy.swift */; };
 		C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C34A05C023EFBD93007685B7 /* StartScene.sks */; };
@@ -32,6 +34,8 @@
 		6F05D68B23EEF91A007B3F3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F05D68E23EEF91A007B3F3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6F05D69023EEF91A007B3F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6F18776023F0750400525AA8 /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
+		6F18776223F0753000525AA8 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		6F31299323EF947C00DF4312 /* enemy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = enemy.json; sourceTree = "<group>"; };
 		6F31299523EF965C00DF4312 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		C34A05C023EFBD93007685B7 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		6F05D67D23EEF915007B3F3E /* Battle City Tower Defense */ = {
 			isa = PBXGroup;
 			children = (
+				6F18776423F0754000525AA8 /* Objects */,
 				C34A05C223EFBD9C007685B7 /* Scenes */,
 				6F05D67E23EEF915007B3F3E /* AppDelegate.swift */,
 				6F05D68223EEF915007B3F3E /* Actions.sks */,
@@ -80,6 +85,15 @@
 				6F31299523EF965C00DF4312 /* Enemy.swift */,
 			);
 			path = "Battle City Tower Defense";
+			sourceTree = "<group>";
+		};
+		6F18776423F0754000525AA8 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				6F18776023F0750400525AA8 /* GameProtocol.swift */,
+				6F18776223F0753000525AA8 /* GameObject.swift */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		C34A05C223EFBD9C007685B7 /* Scenes */ = {
@@ -170,9 +184,11 @@
 			files = (
 				6F31299623EF965C00DF4312 /* Enemy.swift in Sources */,
 				6F05D68523EEF915007B3F3E /* GameScene.swift in Sources */,
+				6F18776323F0753000525AA8 /* GameObject.swift in Sources */,
 				6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */,
 				C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */,
 				6F05D67F23EEF915007B3F3E /* AppDelegate.swift in Sources */,
+				6F18776123F0750400525AA8 /* GameProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
