@@ -17,8 +17,10 @@
 		6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */; };
 		6F18776123F0750400525AA8 /* GameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776023F0750400525AA8 /* GameProtocol.swift */; };
 		6F18776323F0753000525AA8 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776223F0753000525AA8 /* GameObject.swift */; };
+		6F18776623F079B000525AA8 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776523F079B000525AA8 /* Enemy.swift */; };
+		6F18776823F07C3F00525AA8 /* River.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F18776723F07C3F00525AA8 /* River.swift */; };
 		6F31299423EF947C00DF4312 /* enemy.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F31299323EF947C00DF4312 /* enemy.json */; };
-		6F31299623EF965C00DF4312 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F31299523EF965C00DF4312 /* Enemy.swift */; };
+		6F31299623EF965C00DF4312 /* EnemyStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F31299523EF965C00DF4312 /* EnemyStruct.swift */; };
 		C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C34A05C023EFBD93007685B7 /* StartScene.sks */; };
 		C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34A05C323EFBDE7007685B7 /* StartScene.swift */; };
 /* End PBXBuildFile section */
@@ -36,8 +38,10 @@
 		6F05D69023EEF91A007B3F3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F18776023F0750400525AA8 /* GameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProtocol.swift; sourceTree = "<group>"; };
 		6F18776223F0753000525AA8 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		6F18776523F079B000525AA8 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		6F18776723F07C3F00525AA8 /* River.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = River.swift; sourceTree = "<group>"; };
 		6F31299323EF947C00DF4312 /* enemy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = enemy.json; sourceTree = "<group>"; };
-		6F31299523EF965C00DF4312 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		6F31299523EF965C00DF4312 /* EnemyStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyStruct.swift; sourceTree = "<group>"; };
 		C34A05C023EFBD93007685B7 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		C34A05C323EFBDE7007685B7 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +86,7 @@
 				6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */,
 				6F05D69023EEF91A007B3F3E /* Info.plist */,
 				6F31299323EF947C00DF4312 /* enemy.json */,
-				6F31299523EF965C00DF4312 /* Enemy.swift */,
+				6F31299523EF965C00DF4312 /* EnemyStruct.swift */,
 			);
 			path = "Battle City Tower Defense";
 			sourceTree = "<group>";
@@ -92,6 +96,8 @@
 			children = (
 				6F18776023F0750400525AA8 /* GameProtocol.swift */,
 				6F18776223F0753000525AA8 /* GameObject.swift */,
+				6F18776523F079B000525AA8 /* Enemy.swift */,
+				6F18776723F07C3F00525AA8 /* River.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -182,10 +188,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F31299623EF965C00DF4312 /* Enemy.swift in Sources */,
+				6F31299623EF965C00DF4312 /* EnemyStruct.swift in Sources */,
+				6F18776823F07C3F00525AA8 /* River.swift in Sources */,
 				6F05D68523EEF915007B3F3E /* GameScene.swift in Sources */,
 				6F18776323F0753000525AA8 /* GameObject.swift in Sources */,
 				6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */,
+				6F18776623F079B000525AA8 /* Enemy.swift in Sources */,
 				C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */,
 				6F05D67F23EEF915007B3F3E /* AppDelegate.swift in Sources */,
 				6F18776123F0750400525AA8 /* GameProtocol.swift in Sources */,

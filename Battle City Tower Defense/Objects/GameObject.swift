@@ -37,15 +37,6 @@ class GameObject: SKSpriteNode, GameProtocol
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    public func CheckBounds() {
-        
-    }
-    
-    public func Reset() {
-        
-    }
-    
     public func Start() {
         
     }
