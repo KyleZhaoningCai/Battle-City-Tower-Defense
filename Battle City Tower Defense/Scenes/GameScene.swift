@@ -62,10 +62,8 @@ class GameScene: SKScene {
     
     func setUpStaticTiles(){
         // ** Object initiation to be cahnged to using GameObject class
-        var river = SKSpriteNode(imageNamed: "river")
-        river.size = CGSize(width: 50, height: 50)
-        river.position = CGPoint(x: -75, y: (screenHeight!) / 2 - 75)
-        addChild(river)
+        var river = River(positionX: -75, positionY: (screenHeight!) / 2 - 75)
+        
         river = SKSpriteNode(imageNamed: "river")
         river.size = CGSize(width: 50, height: 50)
         river.position = CGPoint(x: 75, y: (screenHeight!) / 2 - 75)
