@@ -31,6 +31,8 @@
 		6FFD0C2923F112B70010372C /* BrickWallPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFD0C2823F112B70010372C /* BrickWallPlaceholder.swift */; };
 		C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C34A05C023EFBD93007685B7 /* StartScene.sks */; };
 		C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34A05C323EFBDE7007685B7 /* StartScene.swift */; };
+		C3D5A3B423F336BA00C32600 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D5A3B323F336BA00C32600 /* AVFoundation.framework */; };
+		C3D5A3B623F336D100C32600 /* start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C3D5A3B523F336D100C32600 /* start.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		6FFD0C2823F112B70010372C /* BrickWallPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickWallPlaceholder.swift; sourceTree = "<group>"; };
 		C34A05C023EFBD93007685B7 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		C34A05C323EFBDE7007685B7 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		C3D5A3B323F336BA00C32600 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C3D5A3B523F336D100C32600 /* start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = start.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3D5A3B423F336BA00C32600 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			children = (
 				6F05D67D23EEF915007B3F3E /* Battle City Tower Defense */,
 				6F05D67C23EEF915007B3F3E /* Products */,
+				C3D5A3B223F336BA00C32600 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +109,7 @@
 				6F05D68D23EEF91A007B3F3E /* LaunchScreen.storyboard */,
 				6F05D69023EEF91A007B3F3E /* Info.plist */,
 				6F31299323EF947C00DF4312 /* enemy.json */,
+				C3D5A3B523F336D100C32600 /* start.mp3 */,
 			);
 			path = "Battle City Tower Defense";
 			sourceTree = "<group>";
@@ -143,6 +150,14 @@
 				C34A05C323EFBDE7007685B7 /* StartScene.swift */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		C3D5A3B223F336BA00C32600 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C3D5A3B323F336BA00C32600 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +223,7 @@
 				6F05D68123EEF915007B3F3E /* GameScene.sks in Resources */,
 				6F05D68C23EEF91A007B3F3E /* Assets.xcassets in Resources */,
 				6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */,
+				C3D5A3B623F336D100C32600 /* start.mp3 in Resources */,
 				6F31299423EF947C00DF4312 /* enemy.json in Resources */,
 				6F05D68323EEF915007B3F3E /* Actions.sks in Resources */,
 			);
