@@ -2,11 +2,6 @@ import SpriteKit
 
 class Enemy: GameObject
 {
-    
-    var waypoints: [CGPoint] = []
-    var isStoppingPoints: [Bool] = []
-    var targetPoints: [CGPoint] = []
-    var hasWallIndexToCheck: [Int] = []
     var currentWaypoint = 0;
     var state: String = "stopped"
     var stopOthers: Bool = false
@@ -16,48 +11,21 @@ class Enemy: GameObject
     var tankFireInterval: TimeInterval = 1
     var nextFireTime: Date?
     var targetLocation: CGPoint?
+    var tankFinalWaypoint: CGPoint?
+    var finalTargetPoint: CGPoint?
     var tanknumber: Int = -1
     
     // constructor
     init(imageString: String, finalWaypoint: CGPoint, damage: Int, fireInterval: TimeInterval, health: Int, speed: Double)
     {
-        super.init(imageString: imageString, initialScale: 3.0)
-        waypoints.append(CGPoint(x: 0, y:  425))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(CGPoint(x: -100, y:  425))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(CGPoint(x: -100, y:  125))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(CGPoint(x: 100, y:  125))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        if (GameManager.hasWallCheck[0]){
-            waypoints.append(CGPoint(x: 100, y:  125))
-            isStoppingPoints.append(true)
-            targetPoints.append(GameManager.wallLocations[0])
-            hasWallIndexToCheck.append(0)
+        if (imageString == "redTankHeavy1"){
+            super.init(imageString: imageString, initialScale: 5.0)
         }
-        if (GameManager.hasWallCheck[1]){
-            waypoints.append(CGPoint(x: 100, y:  25))
-            isStoppingPoints.append(true)
-            targetPoints.append(GameManager.wallLocations[1])
-            hasWallIndexToCheck.append(1)
+        else{
+            super.init(imageString: imageString, initialScale: 3.0)
         }
-        waypoints.append(CGPoint(x: 100, y:  -175))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(CGPoint(x: -100, y:  -175))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(CGPoint(x: -100, y:  -475))
-        isStoppingPoints.append(false)
-        targetPoints.append(CGPoint(x: 1000, y: 1000))
-        waypoints.append(finalWaypoint)
-        isStoppingPoints.append(true)
-        targetPoints.append(GameManager.basePosition)
+        tankFinalWaypoint = finalWaypoint
+        finalTargetPoint = GameManager.basePosition
         tankDamage = damage
         tankHealth = health
         tankSpeed = speed
@@ -76,17 +44,21 @@ class Enemy: GameObject
     
     override func Update()
     {
-        let targetWaypoint = waypoints[currentWaypoint]
-        let offset = CGPoint(x: targetWaypoint.x - self.position.x, y: targetWaypoint.y - self.position.y)
+        var targetWaypoint = tankFinalWaypoint
+        if (currentWaypoint < GameManager.waypoints.count){
+            targetWaypoint = GameManager.waypoints[currentWaypoint]
+
+        }
+        let offset = CGPoint(x: targetWaypoint!.x - self.position.x, y: targetWaypoint!.y - self.position.y)
         let distance = sqrt(Double(offset.x * offset.x + offset.y * offset.y))
         if (state == "moving"){
             if (distance <= 5){
-                if (currentWaypoint < waypoints.count - 1){
-                    if (isStoppingPoints[currentWaypoint]){
-                        let lookAtConstraint = SKConstraint.orient(to: targetPoints[currentWaypoint], offset: SKRange(constantValue: -CGFloat.pi / 2))
+                if (currentWaypoint < GameManager.waypoints.count - 1){
+                    if (GameManager.isStoppingPoints[currentWaypoint]){
+                        let lookAtConstraint = SKConstraint.orient(to: GameManager.targetPoints[currentWaypoint], offset: SKRange(constantValue: -CGFloat.pi / 2))
                         self.constraints = [ lookAtConstraint ]
                         nextFireTime = Date()
-                        targetLocation = targetPoints[currentWaypoint]
+                        targetLocation = GameManager.targetPoints[currentWaypoint]
                         state = "firing"
                         stopOthers = true
                     }
@@ -95,36 +67,45 @@ class Enemy: GameObject
                         state = "stopped"
                     }
                 }
+                else if (currentWaypoint == GameManager.waypoints.count - 1){
+                    currentWaypoint += 1;
+                    state = "stopped"
+                }
                 else{
-                    let lookAtConstraint = SKConstraint.orient(to: targetPoints[currentWaypoint], offset: SKRange(constantValue: -CGFloat.pi / 2))
-                    self.constraints = [ lookAtConstraint ]
-                    nextFireTime = Date()
-                    targetLocation = targetPoints[currentWaypoint]
-                    state = "firing"
+                    if (currentWaypoint < GameManager.targetPoints.count){
+                        let lookAtConstraint = SKConstraint.orient(to: GameManager.targetPoints[currentWaypoint], offset: SKRange(constantValue: -CGFloat.pi / 2))
+                        self.constraints = [ lookAtConstraint ]
+                        nextFireTime = Date()
+                        targetLocation = GameManager.targetPoints[currentWaypoint]
+                        state = "firing"
+                    }
+                    else {
+                        let lookAtConstraint = SKConstraint.orient(to: finalTargetPoint!, offset: SKRange(constantValue: -CGFloat.pi / 2))
+                        self.constraints = [ lookAtConstraint ]
+                        nextFireTime = Date()
+                        targetLocation = finalTargetPoint!
+                        state = "firing"
+                    }
                 }
             }
         }
         else if (state == "stopped"){
             let duration = tankSpeed * distance / 10
-            let move = SKAction.move(to: targetWaypoint, duration: duration)
+            let move = SKAction.move(to: targetWaypoint!, duration: duration)
             self.run(move)
             // Rotation code from developer.apple.com
-            let lookAtConstraint = SKConstraint.orient(to: targetWaypoint, offset: SKRange(constantValue: -CGFloat.pi / 2))
-            self.constraints = [ lookAtConstraint ]
+            if (self.position != targetWaypoint!){
+                let lookAtConstraint = SKConstraint.orient(to: targetWaypoint!, offset: SKRange(constantValue: -CGFloat.pi / 2))
+                self.constraints = [ lookAtConstraint ]
+            }
             state = "moving"
         }
         else if (state == "firing"){
-            if (hasWallIndexToCheck.count == 0 || (hasWallIndexToCheck.count > 0 && GameManager.hasWallCheck[hasWallIndexToCheck[0]])){
-                let timeTilNextFire = nextFireTime!.timeIntervalSinceNow
-                if (timeTilNextFire <= 0){
-                    fireBullet(target: targetLocation!)
-                    let timeNow = Date()
-                    nextFireTime = timeNow.addingTimeInterval(tankFireInterval)
-                }
-            }
-            else if (hasWallIndexToCheck.count > 0 && !GameManager.hasWallCheck[hasWallIndexToCheck[0]]){
-                removeWaypoint(index: currentWaypoint)
-                state = "stopped"
+            let timeTilNextFire = nextFireTime!.timeIntervalSinceNow
+            if (timeTilNextFire <= 0){
+                fireBullet(target: targetLocation!)
+                let timeNow = Date()
+                nextFireTime = timeNow.addingTimeInterval(tankFireInterval)
             }
         }else if (state == "paused"){
             self.removeAllActions()
@@ -136,14 +117,11 @@ class Enemy: GameObject
         let gameScene: GameScene = self.parent as! GameScene
         gameScene.enemyBullets.append(bullet)
         gameScene.addChild(bullet)
+        let fireSound = SKAction.playSoundFileNamed("fire", waitForCompletion: false)
+        gameScene.run(fireSound)
     }
     
-    func removeWaypoint(index: Int){
-        waypoints.remove(at: index)
-        isStoppingPoints.remove(at: index)
-        targetPoints.remove(at: index)
-        if (hasWallIndexToCheck.count > 0){
-            hasWallIndexToCheck.remove(at: 0)
-        }
+    func removeHp(hp: Int){
+        tankHealth -= hp
     }
 }
