@@ -50,7 +50,7 @@ class GameScene: SKScene {
     var brickWallPlaceholders: [BrickWallPlaceholder] = []
     var defTankPlaceholders: [DefTankPlaceHolder] = []
     var base: Base?
-    var awaitingWallPlacement = false
+    var playerAction: String = ""
     var enemyBullets: [Bullet] = []
     var currentWaypoint: Int = 99
     var brickWalls: [BrickWall] = []
@@ -79,10 +79,6 @@ class GameScene: SKScene {
         
         base = Base()
         addChild(base!)
-        
-        // *** to be changed later
-        let tempButton = TempButton()
-        addChild(tempButton)
         
         let leftButton1 = LeftButtonOne()
         addChild(leftButton1)
@@ -119,8 +115,8 @@ class GameScene: SKScene {
            Coins.position = CGPoint(x:220,y:595)
            addChild(Coins)
         
-        let deftank = DefTank()
-        addChild(deftank)
+//        let deftank = DefTank()
+//        addChild(deftank)
         // ***
         
         // preload sounds
@@ -158,11 +154,15 @@ class GameScene: SKScene {
                 }
             }
         }
-        if touchedNode.name == "grass"{
+        if touchedNode.name == "wallBtn"{
             wallButtonCheat -= 1
             if (!spawningEnemyTanks){
-                awaitingWallPlacement = !awaitingWallPlacement
-                if (awaitingWallPlacement){
+                if (playerAction == "makeWall"){
+                    playerAction = ""
+                }else{
+                    playerAction = "makeWall"
+                }
+                if (playerAction == "makeWall"){
                     for index in 0..<brickWallPlaceholders.count{
                         if !GameManager.hasWallCheck[index]{
                             brickWallPlaceholders[index].isHidden = false
@@ -171,6 +171,28 @@ class GameScene: SKScene {
                 }
                 else{
                     turnOffBrickWallPlaceholders()
+                }
+            }
+        }
+        if touchedNode.name == "hammerbutton"{
+            resetWallButtonCheatCount()
+            if (playerAction == "hammerDown"){
+                playerAction = ""
+            }else{
+                playerAction = "hammerDown"
+            }
+        }
+        if touchedNode.name == "largeBrickWall"{
+            resetWallButtonCheatCount()
+            if (playerAction == "hammerDown"){
+                for index in 0..<brickWalls.count{
+                    if brickWalls[index] == touchedNode{
+                        player?.currentTask = "destroyWall"
+                        player?.itemIndex = index
+                        player?.targetLocation = brickWalls[index].position
+                        player?.Move()
+                        break
+                    }
                 }
             }
         }
@@ -834,8 +856,29 @@ class GameScene: SKScene {
                     }
                     player?.clearAction()
                 }
+                else if (player?.currentTask == "destroyWall"){
+                    let wallToRemove = brickWalls[player!.itemIndex]
+                    GameManager.hasWallCheck[player!.itemIndex] = false
+                    for index in 0..<enemyTanks.count{
+                        enemyTanks[index].stopOthers = false
+                        enemyTanks[index].state = "stopped"
+                        for i in 0..<GameManager.targetPoints.count{
+                            if wallToRemove.position == GameManager.targetPoints[i]{
+                                GameManager.isStoppingPoints[i] = false
+                            }
+                        }
+                    }
+                    brickWalls.remove(at: player!.itemIndex)
+                    wallToRemove.removeFromParent()
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    run(destroyWallSound)
+                    player?.clearAction()
+                }
             }
         }
+        Coins.text = "Coins:" + String(GameManager.playerCoin)
+        basewallHP.text = "BaseWallHP:" + String(GameManager.baseHp)
+        
     }
     
     func spawnBrickWall(location: CGPoint, index: Int){
@@ -848,7 +891,7 @@ class GameScene: SKScene {
     func turnOffBrickWallPlaceholders(){
         for brickWallPlaceholder in brickWallPlaceholders{
             brickWallPlaceholder.isHidden = true
-            awaitingWallPlacement = false
+            playerAction = ""
         }
     }
     

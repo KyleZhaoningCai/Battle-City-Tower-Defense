@@ -32,7 +32,7 @@ class CollisionManager
                 scene.addChild(hit)
                 let brickWall: BrickWall = object2 as! BrickWall
                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object2.parent as! GameScene
+                let gameScene: GameScene = scene as! GameScene
                 brickWall.reductHp(amount: bullet.power)
                 var bulletRemoveIndex: Int?
                 var wallRemoveIndex: Int?
@@ -86,7 +86,7 @@ class CollisionManager
                 let hit: Hit = Hit(spawnLocation: P1)
                 scene.addChild(hit)
                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object2.parent as! GameScene
+                let gameScene: GameScene = scene as! GameScene
                 GameManager.baseHp -= bullet.power
                 var bulletRemoveIndex: Int?
                 var removeBullet = false
@@ -119,7 +119,7 @@ class CollisionManager
                 let hit: Hit = Hit(spawnLocation: P1)
                 scene.addChild(hit)
                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object1.parent as! GameScene
+                let gameScene: GameScene = scene as! GameScene
                 var bulletRemoveIndex: Int?
                 var removeBullet = false
                 for index in 0..<gameScene.enemyBullets.count{
