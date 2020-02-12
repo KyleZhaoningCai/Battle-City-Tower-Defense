@@ -18,8 +18,6 @@ let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 
 //let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 let Coins = SKLabelNode(text: "Coins:0")
-      
-
 
 class GameScene: SKScene {
     
@@ -36,9 +34,9 @@ class GameScene: SKScene {
         CGPoint(x: -30, y:  -475),
         CGPoint(x: -90, y:  -475)
     ]
-    
+
     var tankstyle: Int = 0
-    
+
     var currentWave = 1
     var currentSpawn = 0
     var spawningEnemyTanks = false
@@ -58,31 +56,31 @@ class GameScene: SKScene {
     var wallButtonCheat: Int = 3
     var waypointsFinalized = false
     var player: Player?
-    
+
     var enemycounter: Int = -1
-    
-    
+
+
     override func didMove(to view: SKView) {
-        
+
         screenWidth = frame.width
         screenHeight = frame.height
-        
+
         player = Player()
         addChild(player!)
-        
+
         // Set up static tiles on the map
         setUpStaticTiles()
         // Set up brick wall placeholders
         setUpBrickWallPlaceholders()
-        
+
         setDefTankPlaceholders()
-        
+
         base = Base()
         addChild(base!)
-        
+
         let leftButton1 = LeftButtonOne()
         addChild(leftButton1)
-        
+
       let leftButton2 = LeftButtonTwo()
       addChild(leftButton2)
 
@@ -98,27 +96,27 @@ class GameScene: SKScene {
         let brickWall = Wall()
          addChild(brickWall)
 
-        
+
           basewallHP.fontSize = 25
           basewallHP.fontColor = SKColor.white
           basewallHP.fontName = "SF Mono"
           basewallHP.numberOfLines = 0
           basewallHP.preferredMaxLayoutWidth = 120
-       
+
           basewallHP.position = CGPoint(x:-220,y:570)
           addChild(basewallHP)
-          
-       
+
+
            Coins.fontSize = 25
            Coins.fontColor = SKColor.white
            Coins.fontName = "SF Mono"
            Coins.position = CGPoint(x:220,y:595)
            addChild(Coins)
-        
+
 //        let deftank = DefTank()
 //        addChild(deftank)
         // ***
-        
+
         // preload sounds
         do {
             let sounds:[String] = ["destroy", "fire", "tankTravel", "wallHit"]
@@ -132,8 +130,8 @@ class GameScene: SKScene {
         } catch {
         }
     }
-    
-    
+
+
     func touchDown(atPoint pos : CGPoint) {
         let touchedNode = atPoint(pos)
         if touchedNode.name == "ylwTank-2"{
@@ -144,7 +142,7 @@ class GameScene: SKScene {
             }
         }
         if touchedNode.name == "hole"{
-            
+
             for index in 0..<defTankPlaceholders.count{
                 if defTankPlaceholders[index] == touchedNode{
                     DefManager.hastankcheck[index] = true
@@ -227,37 +225,37 @@ class GameScene: SKScene {
             resetWallButtonCheatCount()
         }
     }
-    
+
     func touchMoved(toPoint pos : CGPoint) {
-        
+
     }
-    
+
     func touchUp(atPoint pos : CGPoint) {
-        
+
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchDown(atPoint: t.location(in: self))
         }
     }
-    
+
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
-    
+
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
-    
-    
+
+
     override func update(_ currentTime: TimeInterval) {
-        
-        
+
+
         if (tanks.count > 0){
             for tank in tanks{
                 for enemy in enemyTanks{
@@ -489,7 +487,7 @@ class GameScene: SKScene {
                     GameManager.targetPoints = []
                     currentWave += 1
                 }
-                
+
             }
         }
         if (enemyBullets.count > 0){
@@ -508,7 +506,7 @@ class GameScene: SKScene {
                     for enemytank in enemyTanks {
                         CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: enemytank)
                     }
-
+                }
                 if (GameManager.baseHp <= 0 && base != nil){
                     CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: base!)
                 }
@@ -548,27 +546,27 @@ class GameScene: SKScene {
         }
         Coins.text = "Coins:" + String(GameManager.playerCoin)
         basewallHP.text = "BaseWallHP:" + String(GameManager.baseHp)
-        
+
     }
-    
+
     func spawnBrickWall(location: CGPoint, index: Int){
         let brickWall = BrickWall(positionX: location.x, positionY: location.y, checkWallIndex: index)
         brickWalls.append(brickWall)
         addChild(brickWall)
         turnOffBrickWallPlaceholders()
     }
-    
+
     func turnOffBrickWallPlaceholders(){
         for brickWallPlaceholder in brickWallPlaceholders{
             brickWallPlaceholder.isHidden = true
             playerAction = ""
         }
     }
-    
+
     func resetWallButtonCheatCount(){
         wallButtonCheat = 3
     }
-    
+
     func setUpBrickWallPlaceholders(){
         var brickWallPlaceholder = BrickWallPlaceholder(positionX: GameManager.wallLocations[0].x, positionY: GameManager.wallLocations[0].y)
         brickWallPlaceholder.isHidden = true
@@ -599,8 +597,8 @@ class GameScene: SKScene {
         addChild(brickWallPlaceholder)
         brickWallPlaceholders.append(brickWallPlaceholder)
     }
-    
-    
+
+
     func setDefTankPlaceholders(){
         var defTankPlaceholder = DefTankPlaceHolder(positionX: DefManager.tankLocations[0].x, positionY: DefManager.tankLocations[0].y)
         defTankPlaceholder.isHidden = true
@@ -705,9 +703,9 @@ class GameScene: SKScene {
         defTankPlaceholder = DefTankPlaceHolder(positionX: DefManager.tankLocations[25].x, positionY: DefManager.tankLocations[25].y)
         defTankPlaceholder.isHidden = true
         addChild(defTankPlaceholder)
-        defTankPlaceholders.append(defTankPlaceholder)        
+        defTankPlaceholders.append(defTankPlaceholder)
     }
-    
+
     func setDefTank (location: CGPoint, tankstyle: Int) {
         switch (tankstyle){
         case 1:
@@ -738,12 +736,12 @@ class GameScene: SKScene {
             break;
         }
     }
-    
+
     func hidehole () {
         for dtph in defTankPlaceholders{
             dtph.isHidden = true}
     }
-    
+
     func setUpStaticTiles(){
         // ** Object initiation to be cahnged to using GameObject class
         var river = River(positionX: -75, positionY: (screenHeight!) / 2 - 75)
@@ -922,3 +920,4 @@ class GameScene: SKScene {
         // Base brick wall ends here ******
     }
 }
+
