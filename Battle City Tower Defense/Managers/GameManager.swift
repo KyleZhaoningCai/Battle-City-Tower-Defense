@@ -3,6 +3,9 @@ import UIKit
 
 class GameManager
 {
+    public static var waypoints: [CGPoint] = []
+    public static var isStoppingPoints: [Bool] = []
+    public static var targetPoints: [CGPoint] = []
     public static var hasWallCheck: [Bool] = [false, false, false, false, false, false, false]
     public static var wallLocations: [CGPoint] = [
         CGPoint(x: 100, y: (screenHeight!) / 2 - 650),
@@ -14,6 +17,8 @@ class GameManager
         CGPoint(x: -100, y: (screenHeight!) / 2 - 1050)
     ]
     public static let basePosition: CGPoint = CGPoint(x: 75, y: -625)
-    public static var baseHp = 1000
+    public static var baseHp: Int = 1000
+    public static var playerCoin: Int = 500
+    public static var gameState: String = "onGoing"
 }
 

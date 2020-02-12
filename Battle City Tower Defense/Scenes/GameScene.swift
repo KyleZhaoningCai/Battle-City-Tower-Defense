@@ -45,11 +45,17 @@ class GameScene: SKScene {
     var currentWaypoint: Int = 99
     var brickWalls: [BrickWall] = []
     var baseWalls: [BaseWall] = []
+    var wallButtonCheat: Int = 3
+    var waypointsFinalized = false
+    var player: Player?
     
     override func didMove(to view: SKView) {
         
         screenWidth = frame.width
         screenHeight = frame.height
+        
+        player = Player()
+        addChild(player!)
         
         // Set up static tiles on the map
         setUpStaticTiles()
@@ -64,12 +70,26 @@ class GameScene: SKScene {
         addChild(tempButton)
         
         // ***
+        
+        // preload sounds
+        do {
+            let sounds:[String] = ["destroy", "fire", "tankTravel", "wallHit"]
+            for sound in sounds
+            {
+                let path: String = Bundle.main.path(forResource: sound, ofType: "wav")!
+                let url: URL = URL(fileURLWithPath: path)
+                let player: AVAudioPlayer = try AVAudioPlayer(contentsOf: url)
+                player.prepareToPlay()
+            }
+        } catch {
+        }
     }
     
     
     func touchDown(atPoint pos : CGPoint) {
         let touchedNode = atPoint(pos)
         if touchedNode.name == "grass"{
+            wallButtonCheat -= 1
             if (!spawningEnemyTanks){
                 awaitingWallPlacement = !awaitingWallPlacement
                 if (awaitingWallPlacement){
@@ -85,13 +105,34 @@ class GameScene: SKScene {
             }
         }
         if touchedNode.name == "placeholder"{
+            resetWallButtonCheatCount()
             for index in 0..<brickWallPlaceholders.count{
                 if brickWallPlaceholders[index] == touchedNode{
-                    GameManager.hasWallCheck[index] = true
-                    spawnBrickWall(location: brickWallPlaceholders[index].position, index: index)
+                    player?.currentTask = "wall"
+                    player?.itemIndex = index
+                    player?.targetLocation = brickWallPlaceholders[index].position
+                    player?.Move()
                     break
                 }
             }
+        }
+        if (touchedNode.name == "silverTank2" || touchedNode.name == "silverTankFast1" || touchedNode.name == "silverTankHeavy1" || touchedNode.name == "greenTank2" || touchedNode.name == "greenTankFast1" || touchedNode.name == "greenTankHeave1" || touchedNode.name == "redTank2" || touchedNode.name == "redTankHeave1"){
+            if (wallButtonCheat <= 0){
+                let enemy: Enemy = touchedNode as! Enemy
+                enemy.removeHp(hp: 99999)
+                if (enemy.tankHealth <= 0){
+                    if (enemyTanks.count > 0){
+                        for index in 0..<enemyTanks.count{
+                            if enemy == enemyTanks[index]{
+                                enemy.removeFromParent()
+                                enemyTanks.remove(at: index)
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            resetWallButtonCheatCount()
         }
     }
     
@@ -139,21 +180,171 @@ class GameScene: SKScene {
                     currentSpawn = 0
                     nextSpawnTime = Date()
                     turnOffBrickWallPlaceholders()
+                    player?.clearAction()
                 }
             }
         }
         if (spawningEnemyTanks){
+            if (!waypointsFinalized){
+                GameManager.waypoints.append(CGPoint(x: 0, y:  425))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                GameManager.waypoints.append(CGPoint(x: -100, y:  425))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                GameManager.waypoints.append(CGPoint(x: -100, y:  125))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                GameManager.waypoints.append(CGPoint(x: 100, y:  125))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                if (GameManager.hasWallCheck[0]){
+                    GameManager.waypoints.append(CGPoint(x: 100, y:  115))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[0])
+                }
+                if (GameManager.hasWallCheck[1]){
+                    GameManager.waypoints.append(CGPoint(x: 100, y:  15))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[1])
+                }
+                if (GameManager.hasWallCheck[2]){
+                    GameManager.waypoints.append(CGPoint(x: 100, y:  -85))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[2])
+                }
+                GameManager.waypoints.append(CGPoint(x: 100, y:  -175))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                if (GameManager.hasWallCheck[3]){
+                    GameManager.waypoints.append(CGPoint(x: 90, y:  -175))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[3])
+                }
+                if (GameManager.hasWallCheck[4]){
+                    GameManager.waypoints.append(CGPoint(x: 0, y:  -175))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[4])
+                }
+                GameManager.waypoints.append(CGPoint(x: -100, y:  -175))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                if (GameManager.hasWallCheck[5]){
+                    GameManager.waypoints.append(CGPoint(x: -100, y:  -185))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[5])
+                }
+                if (GameManager.hasWallCheck[6]){
+                    GameManager.waypoints.append(CGPoint(x: -100, y:  -285))
+                    GameManager.isStoppingPoints.append(true)
+                    GameManager.targetPoints.append(GameManager.wallLocations[6])
+                }
+                GameManager.waypoints.append(CGPoint(x: -100, y:  -475))
+                GameManager.isStoppingPoints.append(false)
+                GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
+                waypointsFinalized = true
+            }
             switch (currentWave){
                 case 1:
                     if (currentSpawn < numberOfEnemy){
                         let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
                         if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "silverTank-1", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 1, health: 20, speed: 0.1)
+                            let enemy = Enemy(imageString: "silverTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 1, health: 20, speed: 0.1)
                             addChild(enemy)
                             enemyTanks.append(enemy)
                             currentSpawn += 1
                             let timeNow = Date()
                             nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 2:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "silverTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 0.5, health: 20, speed: 0.07)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 3:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "silverTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 30, fireInterval: 0.5, health: 40, speed: 0.13)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 4:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "greenTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.09)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 5:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "greenTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.05)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 6:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "greenTankHeave1", finalWaypoint: finalWaypoints[currentSpawn], damage: 50, fireInterval: 0.4, health: 70, speed: 0.1)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 7:
+                    if (currentSpawn < numberOfEnemy){
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "redTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 40, fireInterval: 0.3, health: 50, speed: 0.08)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
+                            let timeNow = Date()
+                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
+                        }
+                    }
+                    break;
+                case 8:
+                    if (currentSpawn < 7){
+                        currentSpawn = 7
+                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                        if (remainingSeconds <= 0){
+                            let enemy = Enemy(imageString: "redTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 100, fireInterval: 0.2, health: 1000, speed: 0.1)
+                            addChild(enemy)
+                            enemyTanks.append(enemy)
+                            currentSpawn += 1
                         }
                     }
                     break;
@@ -175,13 +366,25 @@ class GameScene: SKScene {
                     }
                     else{
                         if (tank.state == "paused"){
-                            print(currentWaypoint)
-                            tank.removeWaypoint(index: currentWaypoint)
                             tank.state = "stopped"
                         }
                     }
                 }
                 tank.Update()
+            }
+        }
+        else{
+            if (spawningEnemyTanks){
+                if (currentWave < 8 && currentSpawn >= numberOfEnemy){
+                    spawningEnemyTanks = false
+                    startingNextWave = true
+                    waypointsFinalized = false
+                    GameManager.waypoints = []
+                    GameManager.isStoppingPoints = []
+                    GameManager.targetPoints = []
+                    currentWave += 1
+                }
+                
             }
         }
         if (enemyBullets.count > 0){
@@ -195,6 +398,23 @@ class GameScene: SKScene {
                     for baseWall in baseWalls{
                         CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: baseWall)
                     }
+                }
+                if (GameManager.baseHp <= 0 && base != nil){
+                    CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: base!)
+                }
+            }
+        }
+        if (player?.currentTask != ""){
+            if (player?.getDistance())! < 5{
+                if (player?.currentTask == "wall"){
+                    if (GameManager.playerCoin >= 300){
+                        GameManager.hasWallCheck[(player?.itemIndex)!] = true
+                        spawnBrickWall(location: brickWallPlaceholders[(player?.itemIndex)!].position, index: (player?.itemIndex)!)
+                        GameManager.playerCoin -= 300
+                    }else{
+                        // warn player not enough coins
+                    }
+                    player?.clearAction()
                 }
             }
         }
@@ -212,6 +432,10 @@ class GameScene: SKScene {
             brickWallPlaceholder.isHidden = true
             awaitingWallPlacement = false
         }
+    }
+    
+    func resetWallButtonCheatCount(){
+        wallButtonCheat = 3
     }
     
     func setUpBrickWallPlaceholders(){
