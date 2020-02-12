@@ -153,354 +153,18 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         
-        if tanks.count > 0 {
-            if (tanks[0].state == "waiting") {
-                for enemy in enemyTanks {
-                    if tanks[0].rangstate == "in" {
-                        tanks[0].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[0].tankTarget)], object2: tanks[0])
-                        tanks[0].Update()
-                    } else {
-                        tanks[0].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[0])
-                        tanks[0].tankTarget = enemy.tanknumber
+        
+        if (tanks.count > 0){
+            for tank in tanks{
+                for enemy in enemyTanks{
+                    tank.squaredRadiusCheck(scene: self, object1: enemy, object2: tank)
+                    if (tank.rangstate == "in"){
+                        tank.fireBullet(target1: tank.position, target2: enemy.position)
                     }
                 }
             }
-            if tanks.count > 1 {
-                if (tanks[1].state == "waiting") {
-                    for enemy in enemyTanks {
-                        if tanks[1].rangstate == "in" {
-                            tanks[1].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[1].tankTarget)], object2: tanks[1])
-                            tanks[1].Update()
-                        } else {
-                            tanks[1].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[1])
-                            tanks[1].tankTarget = enemy.tanknumber
-                        }
-                    }
-                }
-                if tanks.count > 2 {
-                    if (tanks[2].state == "waiting") {
-                        for enemy in enemyTanks {
-                            if tanks[2].rangstate == "in" {
-                                tanks[2].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[2].tankTarget)], object2: tanks[2])
-                                tanks[2].Update()
-                            } else {
-                                tanks[2].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[2])
-                                tanks[2].tankTarget = enemy.tanknumber
-                            }
-                        }
-                    }
-                    if tanks.count > 3 {
-                        if (tanks[3].state == "waiting") {
-                            for enemy in enemyTanks {
-                                if tanks[3].rangstate == "in" {
-                                    tanks[3].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[3].tankTarget)], object2: tanks[3])
-                                    tanks[3].Update()
-                                } else {
-                                    tanks[3].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[3])
-                                    tanks[3].tankTarget = enemy.tanknumber
-                                }
-                            }
-                        }
-                        if tanks.count > 4 {
-                            if (tanks[4].state == "waiting") {
-                                for enemy in enemyTanks {
-                                    if tanks[4].rangstate == "in" {
-                                        tanks[4].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[4].tankTarget)], object2: tanks[4])
-                                        tanks[4].Update()
-                                    } else {
-                                        tanks[4].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[4])
-                                        tanks[4].tankTarget = enemy.tanknumber
-                                    }
-                                }
-                            }
-                            if tanks.count > 5 {
-                                if (tanks[5].state == "waiting") {
-                                    for enemy in enemyTanks {
-                                        if tanks[5].rangstate == "in" {
-                                            tanks[5].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[5].tankTarget)], object2: tanks[5])
-                                            tanks[5].Update()
-                                        } else {
-                                            tanks[5].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[5])
-                                            tanks[5].tankTarget = enemy.tanknumber
-                                        }
-                                    }
-                                }
-                                if tanks.count > 6 {
-                                    if (tanks[6].state == "waiting") {
-                                        for enemy in enemyTanks {
-                                            if tanks[6].rangstate == "in" {
-                                                tanks[6].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[6].tankTarget)], object2: tanks[6])
-                                                tanks[6].Update()
-                                            } else {
-                                                tanks[6].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[6])
-                                                tanks[6].tankTarget = enemy.tanknumber
-                                            }
-                                        }
-                                    }
-                                    if tanks.count > 7 {
-                                        if (tanks[7].state == "waiting") {
-                                            for enemy in enemyTanks {
-                                                if tanks[7].rangstate == "in" {
-                                                    tanks[7].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[7].tankTarget)], object2: tanks[7])
-                                                    tanks[7].Update()
-                                                } else {
-                                                    tanks[7].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[7])
-                                                    tanks[7].tankTarget = enemy.tanknumber
-                                                }
-                                            }
-                                        }
-                                        if tanks.count > 8 {
-                                            if (tanks[8].state == "waiting") {
-                                                for enemy in enemyTanks {
-                                                    if tanks[8].rangstate == "in" {
-                                                        tanks[8].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[8].tankTarget)], object2: tanks[8])
-                                                        tanks[8].Update()
-                                                    } else {
-                                                        tanks[8].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[8])
-                                                        tanks[8].tankTarget = enemy.tanknumber
-                                                    }
-                                                }
-                                            }
-                                            if tanks.count > 9 {
-                                                if (tanks[9].state == "waiting") {
-                                                    for enemy in enemyTanks {
-                                                        if tanks[9].rangstate == "in" {
-                                                            tanks[9].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[9].tankTarget)], object2: tanks[9])
-                                                            tanks[9].Update()
-                                                        } else {
-                                                            tanks[9].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[9])
-                                                            tanks[9].tankTarget = enemy.tanknumber
-                                                        }
-                                                    }
-                                                }
-                                                if tanks.count > 10 {
-                                                    if (tanks[10].state == "waiting") {
-                                                        for enemy in enemyTanks {
-                                                            if tanks[10].rangstate == "in" {
-                                                                tanks[10].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[10].tankTarget)], object2: tanks[10])
-                                                                tanks[10].Update()
-                                                            } else {
-                                                                tanks[10].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[10])
-                                                                tanks[10].tankTarget = enemy.tanknumber
-                                                            }
-                                                        }
-                                                    }
-                                                    if tanks.count > 11 {
-                                                        if (tanks[11].state == "waiting") {
-                                                            for enemy in enemyTanks {
-                                                                if tanks[11].rangstate == "in" {
-                                                                    tanks[11].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[11].tankTarget)], object2: tanks[11])
-                                                                    tanks[11].Update()
-                                                                } else {
-                                                                    tanks[11].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[11])
-                                                                    tanks[11].tankTarget = enemy.tanknumber
-                                                                }
-                                                            }
-                                                        }
-                                                        if tanks.count > 12 {
-                                                            if (tanks[12].state == "waiting") {
-                                                                for enemy in enemyTanks {
-                                                                    if tanks[12].rangstate == "in" {
-                                                                        tanks[12].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[12].tankTarget)], object2: tanks[12])
-                                                                        tanks[12].Update()
-                                                                    } else {
-                                                                        tanks[12].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[12])
-                                                                        tanks[12].tankTarget = enemy.tanknumber
-                                                                    }
-                                                                }
-                                                            }
-                                                            if tanks.count > 13 {
-                                                                if (tanks[13].state == "waiting") {
-                                                                    for enemy in enemyTanks {
-                                                                        if tanks[13].rangstate == "in" {
-                                                                            tanks[13].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[13].tankTarget)], object2: tanks[13])
-                                                                            tanks[13].Update()
-                                                                        } else {
-                                                                            tanks[13].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[13])
-                                                                            tanks[13].tankTarget = enemy.tanknumber
-                                                                        }
-                                                                    }
-                                                                }
-                                                                if tanks.count > 14 {
-                                                                    if (tanks[14].state == "waiting") {
-                                                                        for enemy in enemyTanks {
-                                                                            if tanks[14].rangstate == "in" {
-                                                                                tanks[14].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[14].tankTarget)], object2: tanks[14])
-                                                                                tanks[14].Update()
-                                                                            } else {
-                                                                                tanks[14].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[14])
-                                                                                tanks[14].tankTarget = enemy.tanknumber
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                    if tanks.count > 15 {
-                                                                        if (tanks[15].state == "waiting") {
-                                                                            for enemy in enemyTanks {
-                                                                                if tanks[15].rangstate == "in" {
-                                                                                    tanks[15].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[15].tankTarget)], object2: tanks[15])
-                                                                                    tanks[15].Update()
-                                                                                } else {
-                                                                                    tanks[15].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[15])
-                                                                                    tanks[15].tankTarget = enemy.tanknumber
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        if tanks.count > 16 {
-                                                                            if (tanks[16].state == "waiting") {
-                                                                                for enemy in enemyTanks {
-                                                                                    if tanks[16].rangstate == "in" {
-                                                                                        tanks[16].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[16].tankTarget)], object2: tanks[16])
-                                                                                        tanks[16].Update()
-                                                                                    } else {
-                                                                                        tanks[16].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[16])
-                                                                                        tanks[16].tankTarget = enemy.tanknumber
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                            if tanks.count > 17 {
-                                                                                if (tanks[17].state == "waiting") {
-                                                                                    for enemy in enemyTanks {
-                                                                                        if tanks[17].rangstate == "in" {
-                                                                                            tanks[17].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[17].tankTarget)], object2: tanks[17])
-                                                                                            tanks[17].Update()
-                                                                                        } else {
-                                                                                            tanks[17].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[17])
-                                                                                            tanks[17].tankTarget = enemy.tanknumber
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                if tanks.count > 18 {
-                                                                                    if (tanks[18].state == "waiting") {
-                                                                                        for enemy in enemyTanks {
-                                                                                            if tanks[18].rangstate == "in" {
-                                                                                                tanks[18].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[18].tankTarget)], object2: tanks[18])
-                                                                                                tanks[18].Update()
-                                                                                            } else {
-                                                                                                tanks[18].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[18])
-                                                                                                tanks[18].tankTarget = enemy.tanknumber
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                    if tanks.count > 19 {
-                                                                                        if (tanks[19].state == "waiting") {
-                                                                                            for enemy in enemyTanks {
-                                                                                                if tanks[19].rangstate == "in" {
-                                                                                                    tanks[19].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[19].tankTarget)], object2: tanks[19])
-                                                                                                    tanks[19].Update()
-                                                                                                } else {
-                                                                                                    tanks[19].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[19])
-                                                                                                    tanks[19].tankTarget = enemy.tanknumber
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                        if tanks.count > 20 {
-                                                                                            if (tanks[20].state == "waiting") {
-                                                                                                for enemy in enemyTanks {
-                                                                                                    if tanks[20].rangstate == "in" {
-                                                                                                        tanks[20].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[20].tankTarget)], object2: tanks[20])
-                                                                                                        tanks[20].Update()
-                                                                                                    } else {
-                                                                                                        tanks[20].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[20])
-                                                                                                        tanks[20].tankTarget = enemy.tanknumber
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                            if tanks.count > 21 {
-                                                                                                if (tanks[21].state == "waiting") {
-                                                                                                    for enemy in enemyTanks {
-                                                                                                        if tanks[21].rangstate == "in" {
-                                                                                                            tanks[21].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[21].tankTarget)], object2: tanks[21])
-                                                                                                            tanks[21].Update()
-                                                                                                        } else {
-                                                                                                            tanks[21].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[21])
-                                                                                                            tanks[21].tankTarget = enemy.tanknumber
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                                if tanks.count > 22 {
-                                                                                                    if (tanks[22].state == "waiting") {
-                                                                                                        for enemy in enemyTanks {
-                                                                                                            if tanks[22].rangstate == "in" {
-                                                                                                                tanks[22].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[22].tankTarget)], object2: tanks[22])
-                                                                                                                tanks[22].Update()
-                                                                                                            } else {
-                                                                                                                tanks[22].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[22])
-                                                                                                                tanks[22].tankTarget = enemy.tanknumber
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                    if tanks.count > 23 {
-                                                                                                        if (tanks[23].state == "waiting") {
-                                                                                                            for enemy in enemyTanks {
-                                                                                                                if tanks[23].rangstate == "in" {
-                                                                                                                    tanks[23].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[23].tankTarget)], object2: tanks[23])
-                                                                                                                    tanks[23].Update()
-                                                                                                                } else {
-                                                                                                                    tanks[23].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[23])
-                                                                                                                    tanks[23].tankTarget = enemy.tanknumber
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                        if tanks.count > 24 {
-                                                                                                            if (tanks[24].state == "waiting") {
-                                                                                                                for enemy in enemyTanks {
-                                                                                                                    if tanks[24].rangstate == "in" {
-                                                                                                                        tanks[24].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[24].tankTarget)], object2: tanks[24])
-                                                                                                                        tanks[24].Update()
-                                                                                                                    } else {
-                                                                                                                        tanks[24].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[24])
-                                                                                                                        tanks[24].tankTarget = enemy.tanknumber
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                                                                                            if tanks.count > 25 {
-                                                                                                                if (tanks[25].state == "waiting") {
-                                                                                                                    for enemy in enemyTanks {
-                                                                                                                        if tanks[25].rangstate == "in" {
-                                                                                                                            tanks[25].squaredRadiusCheck(scene: self, object1: enemyTanks[(tanks[25].tankTarget)], object2: tanks[25])
-                                                                                                                            tanks[25].Update()
-                                                                                                                        } else {
-                                                                                                                            tanks[25].squaredRadiusCheck(scene: self, object1: enemy, object2: tanks[25])
-                                                                                                                            tanks[25].tankTarget = enemy.tanknumber
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            
-            
-            
-            
         }
-        
 
-        
-        // Called before each frame is rendered
-        // Timer tutorial from https://tutorials.tinyappco.com/SwiftGames/Timer
         if (startingNextWave){
             startingNextWave = false
             let timeNow = Date()
@@ -525,7 +189,7 @@ class GameScene: SKScene {
                 if (currentSpawn < numberOfEnemy){
                     let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
                     if (remainingSeconds <= 0){
-                        let enemy = Enemy(imageString: "silverTank-1", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 0.01, health: 20, speed: 0.1)
+                        let enemy = Enemy(imageString: "silverTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 0.01, health: 20000, speed: 0.1)
                         addChild(enemy)
                         
                         enemycounter = enemycounter + 1
@@ -573,6 +237,11 @@ class GameScene: SKScene {
                 if (baseWalls.count > 0){
                     for baseWall in baseWalls{
                         CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: baseWall)
+                    }
+                }
+                if (tanks.count > 0) {
+                    for enemytank in enemyTanks {
+                        CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: enemytank)
                     }
                 }
             }
@@ -735,7 +404,25 @@ class GameScene: SKScene {
     func setDefTank (location: CGPoint, tankstyle: Int) {
         switch (tankstyle){
         case 1:
-            let tank = Tank(imageString: "ylwTank-1", damage: 10, fireInterval: 1)
+            let tank = Tank(imageString: "ylwTank-1", damage: 10, fireInterval: 0.5)
+            tank.position = location
+            addChild(tank)
+            tanks.append(tank)
+            break;
+        case 2:
+            let tank = Tank(imageString: "ylwTank-1", damage: 20, fireInterval: 1)
+            tank.position = location
+            addChild(tank)
+            tanks.append(tank)
+            break;
+        case 3:
+            let tank = Tank(imageString: "ylwTank-1", damage: 50, fireInterval: 1.5)
+            tank.position = location
+            addChild(tank)
+            tanks.append(tank)
+            break;
+        case 4:
+            let tank = Tank(imageString: "ylwTank-1", damage: 100, fireInterval: 1.5)
             tank.position = location
             addChild(tank)
             tanks.append(tank)

@@ -32,6 +32,7 @@ class Tank: GameObject
     var object2p = CGPoint(x: 1000, y: 1000)
     
     var tankTarget: Int = 0
+    var needtoremove = "n"
     
     
     // constructor
@@ -54,6 +55,7 @@ class Tank: GameObject
     {
         self.position = CGPoint(x: 999, y: 999)
         self.zPosition = 2
+        nextFireTime = Date()
     }
     
     override func Update()
@@ -64,10 +66,12 @@ class Tank: GameObject
                 nextFireTime = Date()
                 let timeTilNextFire = nextFireTime!.timeIntervalSinceNow
                 if (timeTilNextFire <= 0){
-                    
+                    let lookAtConstraint = SKConstraint.orient(to: object1p, offset: SKRange(constantValue: -CGFloat.pi / 2))
+                    self.constraints = [ lookAtConstraint ]
                     fireBullet(target1: object2p, target2: object1p)
                     let timeNow = Date()
                     nextFireTime = timeNow.addingTimeInterval(tankFireInterval)
+
                     
                 }
             } else if (state == "firing") {
@@ -76,14 +80,18 @@ class Tank: GameObject
         }
     }
     
-    
-    
-    
     func fireBullet(target1: CGPoint, target2: CGPoint){
-        let bullet = Bullet(positionX: target1.x, positionY: target1.y, target: target2, damage: tankDamage)
-        let gameScene: GameScene = self.parent as! GameScene
-        gameScene.enemyBullets.append(bullet)
-        gameScene.addChild(bullet)
+        if (nextFireTime!.timeIntervalSinceNow <= 0){
+            let bullet = Bullet(positionX: target1.x, positionY: target1.y, target: target2, damage: tankDamage)
+            let gameScene: GameScene = self.parent as! GameScene
+            gameScene.enemyBullets.append(bullet)
+            gameScene.addChild(bullet)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
+                bullet.removeFromParent()
+            }
+            let timeNow = Date()
+            nextFireTime = timeNow.addingTimeInterval(tankFireInterval)
+        }
     }
     
     
@@ -111,11 +119,13 @@ class Tank: GameObject
             object1p = P1
             object2p = P2
         } else {
-            rangstate = "waiting"
+            rangstate = "out"
             tankstate = "waiting"
             object1p = P1
             object2p = P2
         }
         
     }
+    
+
 }
