@@ -22,7 +22,7 @@ class CollisionManager
         let P2HalfHeight = object2.height! * 0.5
         let halfHeights = P1HalfHeight + P2HalfHeight
         
-        if(squaredDistance(point1: P1, point2: P2) < halfHeights * halfHeights)
+        if(squaredDistance(point1: P1, point2: P2) < (halfHeights * halfHeights + 500))
         {
             switch object2.name {
             case "largeBrickWall":
@@ -139,6 +139,44 @@ class CollisionManager
                 gameScene.addChild(destroyedBase)
                 GameManager.gameState = "gameOver"
                 break
+            case "silverTank2",
+                 "silverTaankFast1",
+                 "silverTankHeavy1",
+                 "greenTank2",
+                 "greenTankFast1",
+                 "greenTankHeavy1",
+                 "redTank2",
+                 "redTankHeave1":
+                let enemy: Enemy = object2 as! Enemy
+                 let bullet: Bullet = object1 as! Bullet
+                let gameScene: GameScene = object2.parent as! GameScene
+                GameManager.baseHp -= bullet.power
+                var bulletRemoveIndex: Int?
+                var tankRemoveIndex: Int?
+                var removeBullet = false
+                //var removeEnemy = false
+                for index in 0..<gameScene.enemyBullets.count{
+                    if gameScene.enemyBullets[index] == bullet{
+                        removeBullet = true
+                        bulletRemoveIndex = index
+                    }
+                }
+                for index in 0..<gameScene.enemyTanks.count{
+                    if gameScene.enemyTanks[index] == enemy{
+                        tankRemoveIndex = index
+                    }
+                }
+                if (removeBullet){
+                    gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+                    bullet.removeFromParent()
+                }
+                enemy.tankHealth -= bullet.power
+                if enemy.tankHealth <= 0{
+                    gameScene.enemyTanks.remove(at: tankRemoveIndex!)
+                    enemy.removeFromParent()
+                }
+                break
+                
             default:
                 break
             }
