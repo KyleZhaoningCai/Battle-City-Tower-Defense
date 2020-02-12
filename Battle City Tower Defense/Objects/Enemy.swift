@@ -16,6 +16,7 @@ class Enemy: GameObject
     var tankFireInterval: TimeInterval = 1
     var nextFireTime: Date?
     var targetLocation: CGPoint?
+    var tanknumber: Int = -1
     
     // constructor
     init(imageString: String, finalWaypoint: CGPoint, damage: Int, fireInterval: TimeInterval, health: Int, speed: Double)

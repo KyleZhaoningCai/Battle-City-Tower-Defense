@@ -23,7 +23,7 @@ class GameViewController: UIViewController {
         SetScene(sceneName: "StartScene")
         StartBtn.isHidden = true
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
             self.StartBtn.isHidden = false
         }
         
