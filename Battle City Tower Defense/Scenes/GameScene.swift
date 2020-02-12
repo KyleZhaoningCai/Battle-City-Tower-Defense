@@ -18,6 +18,11 @@ let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 
 //let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 let Coins = SKLabelNode(text: "Coins:0")
+let Tank1 = SKLabelNode(text: "1:")
+let Tank2 = SKLabelNode(text: "2:")
+let Tank3 = SKLabelNode(text: "3:")
+let Tank4 = SKLabelNode(text: "4:")
+let wall = SKLabelNode(text: "5:")
 
 class GameScene: SKScene {
     
@@ -112,9 +117,39 @@ class GameScene: SKScene {
            Coins.fontName = "SF Mono"
            Coins.position = CGPoint(x:220,y:595)
            addChild(Coins)
+        
+                Tank1.fontSize = 25
+                Tank1.fontColor = SKColor.white
+                Tank1.fontName = "SF Mono"
+                Tank1.position = CGPoint(x: -295, y: -395)
+                addChild(Tank1)
+        
+            Tank2.fontSize = 25
+            Tank2.fontColor = SKColor.white
+            Tank2.fontName = "SF Mono"
+            Tank2.position = CGPoint(x: -295, y: -465)
+            addChild(Tank2)
+                           
+        
 
-//        let deftank = DefTank()
-//        addChild(deftank)
+        Tank3.fontSize = 25
+        Tank3.fontColor = SKColor.white
+        Tank3.fontName = "SF Mono"
+        Tank3.position = CGPoint(x: -295, y: -535)
+        addChild(Tank3)
+                       
+        
+        Tank4.fontSize = 25
+        Tank4.fontColor = SKColor.white
+        Tank4.fontName = "SF Mono"
+        Tank4.position = CGPoint(x: -295, y: -605)
+        addChild(Tank4)
+                       
+        wall.fontSize = 25
+        wall.fontColor = SKColor.white
+        wall.fontName = "SF Mono"
+        wall.position = CGPoint(x: 215, y: -605)
+        addChild(wall)
         // ***
 
         // preload sounds

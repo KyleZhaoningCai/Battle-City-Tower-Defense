@@ -33,7 +33,7 @@ class LeftButtonFour: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: -250, y: -620)
+        self.position = CGPoint(x: -250, y: -618)
     }
     
     override func Update()
