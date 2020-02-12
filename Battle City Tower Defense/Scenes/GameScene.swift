@@ -14,6 +14,12 @@ import GameplayKit
 let screenSize = UIScreen.main.bounds
 var screenWidth: CGFloat?
 var screenHeight: CGFloat?
+let basewallHP = SKLabelNode(text: "BaseWallHP:100")
+
+//let basewallHP = SKLabelNode(text: "BaseWallHP:100")
+let Coins = SKLabelNode(text: "Coins:0")
+      
+
 
 class GameScene: SKScene {
     
@@ -62,6 +68,41 @@ class GameScene: SKScene {
         // *** to be changed later
         let tempButton = TempButton()
         addChild(tempButton)
+        
+        let leftButton1 = LeftButtonOne()
+        addChild(leftButton1)
+        
+      let leftButton2 = LeftButtonTwo()
+      addChild(leftButton2)
+
+        let leftButton3 = LeftButtonThree()
+        addChild(leftButton3)
+
+        let leftButton4 = LeftButtonFour()
+        addChild(leftButton4)
+
+        let hammer = Hammer()
+        addChild(hammer)
+
+        let brickWall = Wall()
+         addChild(brickWall)
+
+        
+          basewallHP.fontSize = 25
+          basewallHP.fontColor = SKColor.white
+          basewallHP.fontName = "SF Mono"
+          basewallHP.numberOfLines = 0
+          basewallHP.preferredMaxLayoutWidth = 120
+       
+          basewallHP.position = CGPoint(x:-220,y:570)
+          addChild(basewallHP)
+          
+       
+           Coins.fontSize = 25
+           Coins.fontColor = SKColor.white
+           Coins.fontName = "SF Mono"
+           Coins.position = CGPoint(x:220,y:595)
+           addChild(Coins)
         
         // ***
     }

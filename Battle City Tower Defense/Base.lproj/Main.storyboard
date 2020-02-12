@@ -16,10 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6P-Cb-JSj">
-                                <rect key="frame" x="190" y="624" width="34" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6P-Cb-JSj">
+                                <rect key="frame" x="113" y="606" width="189" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start"/>
+                                <state key="normal" image="gameplaybutton" backgroundImage="gameplaybutton"/>
                                 <connections>
                                     <action selector="StartBtn:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Mt8-cd-leM"/>
                                 </connections>
@@ -37,4 +37,7 @@
             <point key="canvasLocation" x="139" y="116"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="gameplaybutton" width="189" height="71"/>
+    </resources>
 </document>
