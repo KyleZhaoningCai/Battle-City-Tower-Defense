@@ -13,6 +13,7 @@ class Enemy: GameObject
     var targetLocation: CGPoint?
     var tankFinalWaypoint: CGPoint?
     var finalTargetPoint: CGPoint?
+    var tanknumber: Int = -1
     
     // constructor
     init(imageString: String, finalWaypoint: CGPoint, damage: Int, fireInterval: TimeInterval, health: Int, speed: Double)
