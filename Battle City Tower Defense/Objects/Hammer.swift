@@ -34,7 +34,7 @@ class Hammer: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: 250, y: -520)
+        self.position = CGPoint(x: 260, y: -520)
     }
     
     override func Update()

@@ -34,7 +34,7 @@ class Wall: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: 250, y: -620)
+        self.position = CGPoint(x: 260, y: -620)
     }
     
     override func Update()
