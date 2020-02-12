@@ -22,13 +22,17 @@ class CollisionManager
         let P2HalfHeight = object2.height! * 0.5
         let halfHeights = P1HalfHeight + P2HalfHeight
         
-        if(squaredDistance(point1: P1, point2: P2) < halfHeights * halfHeights)
+        if(squaredDistance(point1: P1, point2: P2) < (halfHeights * halfHeights + 500))
         {
             switch object2.name {
             case "largeBrickWall":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
                 let brickWall: BrickWall = object2 as! BrickWall
                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object2.parent as! GameScene
+                let gameScene: GameScene = scene as! GameScene
                 brickWall.reductHp(amount: bullet.power)
                 var bulletRemoveIndex: Int?
                 var wallRemoveIndex: Int?
@@ -56,16 +60,33 @@ class CollisionManager
                 }
                 if (removeWall){
                     gameScene.brickWalls.remove(at: wallRemoveIndex!)
-                    GameManager.hasWallCheck[wallToRemove!.index!] = false
-                    for enemy in gameScene.enemyTanks{
-                        enemy.stopOthers = false
+                    for index in 0..<GameManager.hasWallCheck.count{
+                        if GameManager.wallLocations[index] == wallToRemove!.position{
+                            GameManager.hasWallCheck[index] = false
+                        }
+                    }
+                    GameManager.hasWallCheck[wallRemoveIndex!] = false
+                    for index in 0..<gameScene.enemyTanks.count{
+                        gameScene.enemyTanks[index].stopOthers = false
+                        gameScene.enemyTanks[index].state = "stopped"
+                        for i in 0..<GameManager.targetPoints.count{
+                            if wallToRemove?.position == GameManager.targetPoints[i]{
+                                GameManager.isStoppingPoints[i] = false
+                            }
+                        }
                     }
                     brickWall.removeFromParent()
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    scene.run(destroyWallSound)
                 }
                 break
             case "brickWall":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object2.parent as! GameScene
+                let gameScene: GameScene = scene as! GameScene
                 GameManager.baseHp -= bullet.power
                 var bulletRemoveIndex: Int?
                 var removeBullet = false
@@ -88,8 +109,74 @@ class CollisionManager
                         baseWall.removeFromParent()
                     }
                     gameScene.baseWalls = []
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    scene.run(destroyWallSound)
                 }
                 break
+            case "bird":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
+                let bullet: Bullet = object1 as! Bullet
+                let gameScene: GameScene = scene as! GameScene
+                var bulletRemoveIndex: Int?
+                var removeBullet = false
+                for index in 0..<gameScene.enemyBullets.count{
+                    if gameScene.enemyBullets[index] == bullet{
+                        removeBullet = true
+                        bulletRemoveIndex = index
+                    }
+                }
+                if (removeBullet){
+                    gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+                    bullet.removeFromParent()
+                }
+                let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                scene.run(destroyWallSound)
+                object2.removeFromParent()
+                let destroyedBase: DestroyedBase = DestroyedBase()
+                gameScene.addChild(destroyedBase)
+                GameManager.gameState = "gameOver"
+                break
+            case "silverTank2",
+                 "silverTaankFast1",
+                 "silverTankHeavy1",
+                 "greenTank2",
+                 "greenTankFast1",
+                 "greenTankHeavy1",
+                 "redTank2",
+                 "redTankHeave1":
+                let enemy: Enemy = object2 as! Enemy
+                 let bullet: Bullet = object1 as! Bullet
+                let gameScene: GameScene = object2.parent as! GameScene
+                GameManager.baseHp -= bullet.power
+                var bulletRemoveIndex: Int?
+                var tankRemoveIndex: Int?
+                var removeBullet = false
+                //var removeEnemy = false
+                for index in 0..<gameScene.enemyBullets.count{
+                    if gameScene.enemyBullets[index] == bullet{
+                        removeBullet = true
+                        bulletRemoveIndex = index
+                    }
+                }
+                for index in 0..<gameScene.enemyTanks.count{
+                    if gameScene.enemyTanks[index] == enemy{
+                        tankRemoveIndex = index
+                    }
+                }
+                if (removeBullet){
+                    gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+                    bullet.removeFromParent()
+                }
+                enemy.tankHealth -= bullet.power
+                if enemy.tankHealth <= 0{
+                    gameScene.enemyTanks.remove(at: tankRemoveIndex!)
+                    enemy.removeFromParent()
+                }
+                break
+                
             default:
                 break
             }
