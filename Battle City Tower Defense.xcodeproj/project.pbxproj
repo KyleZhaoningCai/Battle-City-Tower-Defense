@@ -27,8 +27,21 @@
 		6F31299423EF947C00DF4312 /* enemy.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F31299323EF947C00DF4312 /* enemy.json */; };
 		6F40814723F1A2CD00E29117 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40814623F1A2CD00E29117 /* GameManager.swift */; };
 		6F40814923F1DC1E00E29117 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F40814823F1DC1E00E29117 /* Bullet.swift */; };
+		6F60A6AE23F3796F00054BC4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F60A6AD23F3796F00054BC4 /* Player.swift */; };
+		6F60A6B423F3AF1500054BC4 /* destroy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F60A6B023F3AF1500054BC4 /* destroy.wav */; };
+		6F60A6B523F3AF1500054BC4 /* wallHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F60A6B123F3AF1500054BC4 /* wallHit.wav */; };
+		6F60A6B623F3AF1500054BC4 /* tankTravel.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F60A6B223F3AF1500054BC4 /* tankTravel.wav */; };
+		6F60A6B723F3AF1500054BC4 /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6F60A6B323F3AF1500054BC4 /* fire.wav */; };
+		6F60A6B923F3B8A500054BC4 /* Hit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F60A6B823F3B8A500054BC4 /* Hit.swift */; };
+		6F60A6BB23F3CEFC00054BC4 /* DestroyedBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F60A6BA23F3CEFC00054BC4 /* DestroyedBase.swift */; };
 		6FFD0C2723F1094D0010372C /* TempButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFD0C2623F1094D0010372C /* TempButton.swift */; };
 		6FFD0C2923F112B70010372C /* BrickWallPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFD0C2823F112B70010372C /* BrickWallPlaceholder.swift */; };
+		A814615023F35CAA0088FC32 /* LeftButtonOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814614F23F35CAA0088FC32 /* LeftButtonOne.swift */; };
+		A814615223F3648F0088FC32 /* LeftButtontwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615123F3648F0088FC32 /* LeftButtontwo.swift */; };
+		A814615423F364A60088FC32 /* LeftButtonThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615323F364A60088FC32 /* LeftButtonThree.swift */; };
+		A814615623F364BD0088FC32 /* LeftButtonfour.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615523F364BD0088FC32 /* LeftButtonfour.swift */; };
+		A814615A23F3907E0088FC32 /* Hammer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615923F3907E0088FC32 /* Hammer.swift */; };
+		A814615C23F3908F0088FC32 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615B23F3908F0088FC32 /* Wall.swift */; };
 		C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C34A05C023EFBD93007685B7 /* StartScene.sks */; };
 		C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34A05C323EFBDE7007685B7 /* StartScene.swift */; };
 		C3D5A3B423F336BA00C32600 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D5A3B323F336BA00C32600 /* AVFoundation.framework */; };
@@ -65,8 +78,21 @@
 		6F31299323EF947C00DF4312 /* enemy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = enemy.json; sourceTree = "<group>"; };
 		6F40814623F1A2CD00E29117 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		6F40814823F1DC1E00E29117 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		6F60A6AD23F3796F00054BC4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		6F60A6B023F3AF1500054BC4 /* destroy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = destroy.wav; sourceTree = "<group>"; };
+		6F60A6B123F3AF1500054BC4 /* wallHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wallHit.wav; sourceTree = "<group>"; };
+		6F60A6B223F3AF1500054BC4 /* tankTravel.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tankTravel.wav; sourceTree = "<group>"; };
+		6F60A6B323F3AF1500054BC4 /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fire.wav; sourceTree = "<group>"; };
+		6F60A6B823F3B8A500054BC4 /* Hit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hit.swift; sourceTree = "<group>"; };
+		6F60A6BA23F3CEFC00054BC4 /* DestroyedBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyedBase.swift; sourceTree = "<group>"; };
 		6FFD0C2623F1094D0010372C /* TempButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempButton.swift; sourceTree = "<group>"; };
 		6FFD0C2823F112B70010372C /* BrickWallPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrickWallPlaceholder.swift; sourceTree = "<group>"; };
+		A814614F23F35CAA0088FC32 /* LeftButtonOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftButtonOne.swift; sourceTree = "<group>"; };
+		A814615123F3648F0088FC32 /* LeftButtontwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftButtontwo.swift; sourceTree = "<group>"; };
+		A814615323F364A60088FC32 /* LeftButtonThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftButtonThree.swift; sourceTree = "<group>"; };
+		A814615523F364BD0088FC32 /* LeftButtonfour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftButtonfour.swift; sourceTree = "<group>"; };
+		A814615923F3907E0088FC32 /* Hammer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hammer.swift; sourceTree = "<group>"; };
+		A814615B23F3908F0088FC32 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		C34A05C023EFBD93007685B7 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		C34A05C323EFBDE7007685B7 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		C3D5A3B323F336BA00C32600 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -112,6 +138,7 @@
 		6F05D67D23EEF915007B3F3E /* Battle City Tower Defense */ = {
 			isa = PBXGroup;
 			children = (
+				6F60A6AF23F3AE2200054BC4 /* Audios */,
 				6F18776F23F0FCCA00525AA8 /* Managers */,
 				6F18776423F0754000525AA8 /* Objects */,
 				C34A05C223EFBD9C007685B7 /* Scenes */,
@@ -145,6 +172,15 @@
 				6FFD0C2823F112B70010372C /* BrickWallPlaceholder.swift */,
 				C3D5A3C123F35C0700C32600 /* DefTankPlaceHolder.swift */,
 				6F40814823F1DC1E00E29117 /* Bullet.swift */,
+				A814614F23F35CAA0088FC32 /* LeftButtonOne.swift */,
+				A814615123F3648F0088FC32 /* LeftButtontwo.swift */,
+				A814615323F364A60088FC32 /* LeftButtonThree.swift */,
+				A814615523F364BD0088FC32 /* LeftButtonfour.swift */,
+				A814615923F3907E0088FC32 /* Hammer.swift */,
+				A814615B23F3908F0088FC32 /* Wall.swift */,
+				6F60A6AD23F3796F00054BC4 /* Player.swift */,
+				6F60A6B823F3B8A500054BC4 /* Hit.swift */,
+				6F60A6BA23F3CEFC00054BC4 /* DestroyedBase.swift */,
 				C3D5A3C323F3685A00C32600 /* Tank.swift */,
 			);
 			path = Objects;
@@ -158,6 +194,17 @@
 				C3D5A3BF23F35ABC00C32600 /* DefManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		6F60A6AF23F3AE2200054BC4 /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				6F60A6B023F3AF1500054BC4 /* destroy.wav */,
+				6F60A6B323F3AF1500054BC4 /* fire.wav */,
+				6F60A6B223F3AF1500054BC4 /* tankTravel.wav */,
+				6F60A6B123F3AF1500054BC4 /* wallHit.wav */,
+			);
+			path = Audios;
 			sourceTree = "<group>";
 		};
 		C34A05C223EFBD9C007685B7 /* Scenes */ = {
@@ -241,9 +288,13 @@
 			files = (
 				C3D5A3BC23F3505C00C32600 /* EndScene.sks in Resources */,
 				C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */,
+				6F60A6B423F3AF1500054BC4 /* destroy.wav in Resources */,
+				6F60A6B523F3AF1500054BC4 /* wallHit.wav in Resources */,
 				6F05D68A23EEF915007B3F3E /* Main.storyboard in Resources */,
 				6F05D68123EEF915007B3F3E /* GameScene.sks in Resources */,
 				6F05D68C23EEF91A007B3F3E /* Assets.xcassets in Resources */,
+				6F60A6B623F3AF1500054BC4 /* tankTravel.wav in Resources */,
+				6F60A6B723F3AF1500054BC4 /* fire.wav in Resources */,
 				6F05D68F23EEF91A007B3F3E /* LaunchScreen.storyboard in Resources */,
 				C3D5A3B623F336D100C32600 /* start.mp3 in Resources */,
 				6F31299423EF947C00DF4312 /* enemy.json in Resources */,
@@ -258,13 +309,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F60A6BB23F3CEFC00054BC4 /* DestroyedBase.swift in Sources */,
 				C3D5A3C423F3685A00C32600 /* Tank.swift in Sources */,
 				6F40814923F1DC1E00E29117 /* Bullet.swift in Sources */,
+				A814615223F3648F0088FC32 /* LeftButtontwo.swift in Sources */,
 				6F18777123F0FD6500525AA8 /* CollisionManager.swift in Sources */,
+				A814615623F364BD0088FC32 /* LeftButtonfour.swift in Sources */,
 				6F40814723F1A2CD00E29117 /* GameManager.swift in Sources */,
 				C3D5A3BA23F3504300C32600 /* EndScene.swift in Sources */,
 				6F18776823F07C3F00525AA8 /* River.swift in Sources */,
 				6F05D68523EEF915007B3F3E /* GameScene.swift in Sources */,
+				A814615A23F3907E0088FC32 /* Hammer.swift in Sources */,
 				6F18776C23F0CE8E00525AA8 /* Base.swift in Sources */,
 				6F18776E23F0D00100525AA8 /* BaseWall.swift in Sources */,
 				6FFD0C2923F112B70010372C /* BrickWallPlaceholder.swift in Sources */,
@@ -273,13 +328,18 @@
 				C3D5A3C223F35C0700C32600 /* DefTankPlaceHolder.swift in Sources */,
 				6FFD0C2723F1094D0010372C /* TempButton.swift in Sources */,
 				6F18776323F0753000525AA8 /* GameObject.swift in Sources */,
+				A814615023F35CAA0088FC32 /* LeftButtonOne.swift in Sources */,
 				6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */,
 				6F18777323F0FDB400525AA8 /* BrickWall.swift in Sources */,
 				6F18776623F079B000525AA8 /* Enemy.swift in Sources */,
+				A814615C23F3908F0088FC32 /* Wall.swift in Sources */,
+				A814615423F364A60088FC32 /* LeftButtonThree.swift in Sources */,
 				C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */,
 				6F05D67F23EEF915007B3F3E /* AppDelegate.swift in Sources */,
 				C3D5A3BE23F3513A00C32600 /* DefTank.swift in Sources */,
 				6F18776A23F0ADBF00525AA8 /* UnbreakableWall.swift in Sources */,
+				6F60A6B923F3B8A500054BC4 /* Hit.swift in Sources */,
+				6F60A6AE23F3796F00054BC4 /* Player.swift in Sources */,
 				6F18776123F0750400525AA8 /* GameProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

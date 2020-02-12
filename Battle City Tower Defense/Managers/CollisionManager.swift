@@ -26,6 +26,10 @@ class CollisionManager
         {
             switch object2.name {
             case "largeBrickWall":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
                 let brickWall: BrickWall = object2 as! BrickWall
                 let bullet: Bullet = object1 as! Bullet
                 let gameScene: GameScene = object2.parent as! GameScene
@@ -56,14 +60,31 @@ class CollisionManager
                 }
                 if (removeWall){
                     gameScene.brickWalls.remove(at: wallRemoveIndex!)
-                    GameManager.hasWallCheck[wallToRemove!.index!] = false
-                    for enemy in gameScene.enemyTanks{
-                        enemy.stopOthers = false
+                    for index in 0..<GameManager.hasWallCheck.count{
+                        if GameManager.wallLocations[index] == wallToRemove!.position{
+                            GameManager.hasWallCheck[index] = false
+                        }
+                    }
+                    GameManager.hasWallCheck[wallRemoveIndex!] = false
+                    for index in 0..<gameScene.enemyTanks.count{
+                        gameScene.enemyTanks[index].stopOthers = false
+                        gameScene.enemyTanks[index].state = "stopped"
+                        for i in 0..<GameManager.targetPoints.count{
+                            if wallToRemove?.position == GameManager.targetPoints[i]{
+                                GameManager.isStoppingPoints[i] = false
+                            }
+                        }
                     }
                     brickWall.removeFromParent()
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    scene.run(destroyWallSound)
                 }
                 break
             case "brickWall":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
                 let bullet: Bullet = object1 as! Bullet
                 let gameScene: GameScene = object2.parent as! GameScene
                 GameManager.baseHp -= bullet.power
@@ -88,7 +109,35 @@ class CollisionManager
                         baseWall.removeFromParent()
                     }
                     gameScene.baseWalls = []
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    scene.run(destroyWallSound)
                 }
+                break
+            case "bird":
+                let hitWallSound = SKAction.playSoundFileNamed("wallHit", waitForCompletion: false)
+                scene.run(hitWallSound)
+                let hit: Hit = Hit(spawnLocation: P1)
+                scene.addChild(hit)
+                let bullet: Bullet = object1 as! Bullet
+                let gameScene: GameScene = object1.parent as! GameScene
+                var bulletRemoveIndex: Int?
+                var removeBullet = false
+                for index in 0..<gameScene.enemyBullets.count{
+                    if gameScene.enemyBullets[index] == bullet{
+                        removeBullet = true
+                        bulletRemoveIndex = index
+                    }
+                }
+                if (removeBullet){
+                    gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+                    bullet.removeFromParent()
+                }
+                let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                scene.run(destroyWallSound)
+                object2.removeFromParent()
+                let destroyedBase: DestroyedBase = DestroyedBase()
+                gameScene.addChild(destroyedBase)
+                GameManager.gameState = "gameOver"
                 break
             case "silverTank2",
                  "silverTaankFast1",
