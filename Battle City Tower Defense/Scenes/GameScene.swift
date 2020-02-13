@@ -39,9 +39,9 @@ class GameScene: SKScene {
         CGPoint(x: -30, y:  -475),
         CGPoint(x: -90, y:  -475)
     ]
-
+    
     var tankstyle: Int = 0
-
+    
     var currentWave = 1
     var currentSpawn = 0
     var spawningEnemyTanks = false
@@ -50,6 +50,7 @@ class GameScene: SKScene {
     var nextSpawnTime: Date?
     var enemyTanks: [Enemy] = []
     var tanks: [Tank] = []
+    var booms:[BOOM] = []
     var brickWallPlaceholders: [BrickWallPlaceholder] = []
     var defTankPlaceholders: [DefTankPlaceHolder] = []
     var base: Base?
@@ -61,97 +62,97 @@ class GameScene: SKScene {
     var wallButtonCheat: Int = 3
     var waypointsFinalized = false
     var player: Player?
-
+    
     var enemycounter: Int = -1
-
-
+    
+    
     override func didMove(to view: SKView) {
-
+        
         screenWidth = frame.width
         screenHeight = frame.height
-
+        
         player = Player()
         addChild(player!)
-
+        
         // Set up static tiles on the map
         setUpStaticTiles()
         // Set up brick wall placeholders
         setUpBrickWallPlaceholders()
-
+        
         setDefTankPlaceholders()
-
+        
         base = Base()
         addChild(base!)
-
+        
         let leftButton1 = LeftButtonOne()
         addChild(leftButton1)
-
-      let leftButton2 = LeftButtonTwo()
-      addChild(leftButton2)
-
+        
+        let leftButton2 = LeftButtonTwo()
+        addChild(leftButton2)
+        
         let leftButton3 = LeftButtonThree()
         addChild(leftButton3)
-
+        
         let leftButton4 = LeftButtonFour()
         addChild(leftButton4)
-
+        
         let hammer = Hammer()
         addChild(hammer)
-
+        
         let brickWall = Wall()
-         addChild(brickWall)
-
-
-          basewallHP.fontSize = 25
-          basewallHP.fontColor = SKColor.white
-          basewallHP.fontName = "SF Mono"
-          basewallHP.numberOfLines = 0
-          basewallHP.preferredMaxLayoutWidth = 120
-
-          basewallHP.position = CGPoint(x:-220,y:570)
-          addChild(basewallHP)
-
-
-           Coins.fontSize = 25
-           Coins.fontColor = SKColor.white
-           Coins.fontName = "SF Mono"
-           Coins.position = CGPoint(x:220,y:595)
-           addChild(Coins)
+        addChild(brickWall)
         
-                Tank1.fontSize = 25
-                Tank1.fontColor = SKColor.white
-                Tank1.fontName = "SF Mono"
-                Tank1.position = CGPoint(x: -295, y: -395)
-                addChild(Tank1)
         
-            Tank2.fontSize = 25
-            Tank2.fontColor = SKColor.white
-            Tank2.fontName = "SF Mono"
-            Tank2.position = CGPoint(x: -295, y: -465)
-            addChild(Tank2)
-                           
+        basewallHP.fontSize = 25
+        basewallHP.fontColor = SKColor.white
+        basewallHP.fontName = "SF Mono"
+        basewallHP.numberOfLines = 0
+        basewallHP.preferredMaxLayoutWidth = 120
         
-
+        basewallHP.position = CGPoint(x:-220,y:570)
+        addChild(basewallHP)
+        
+        
+        Coins.fontSize = 25
+        Coins.fontColor = SKColor.white
+        Coins.fontName = "SF Mono"
+        Coins.position = CGPoint(x:220,y:595)
+        addChild(Coins)
+        
+        Tank1.fontSize = 25
+        Tank1.fontColor = SKColor.white
+        Tank1.fontName = "SF Mono"
+        Tank1.position = CGPoint(x: -295, y: -400)
+        addChild(Tank1)
+        
+        Tank2.fontSize = 25
+        Tank2.fontColor = SKColor.white
+        Tank2.fontName = "SF Mono"
+        Tank2.position = CGPoint(x: -295, y: -465)
+        addChild(Tank2)
+        
+        
+        
         Tank3.fontSize = 25
         Tank3.fontColor = SKColor.white
         Tank3.fontName = "SF Mono"
-        Tank3.position = CGPoint(x: -295, y: -535)
+        Tank3.position = CGPoint(x: -295, y: -530)
         addChild(Tank3)
-                       
+        
         
         Tank4.fontSize = 25
         Tank4.fontColor = SKColor.white
         Tank4.fontName = "SF Mono"
-        Tank4.position = CGPoint(x: -295, y: -605)
+        Tank4.position = CGPoint(x: -295, y: -595)
         addChild(Tank4)
-                       
+        
         wall.fontSize = 25
         wall.fontColor = SKColor.white
         wall.fontName = "SF Mono"
         wall.position = CGPoint(x: 215, y: -605)
         addChild(wall)
         // ***
-
+        
         // preload sounds
         do {
             let sounds:[String] = ["destroy", "fire", "tankTravel", "wallHit"]
@@ -165,23 +166,48 @@ class GameScene: SKScene {
         } catch {
         }
     }
-
-
+    
+    
     func touchDown(atPoint pos : CGPoint) {
         let touchedNode = atPoint(pos)
-        if touchedNode.name == "ylwTank-2"{
+        if touchedNode.name == "tankBTN1"{
             for index in 0..<defTankPlaceholders.count{
                 if !DefManager.hastankcheck[index]{
                     defTankPlaceholders[index].isHidden = false
+                    tankstyle = 1
+                }
+            }
+        }
+        if touchedNode.name == "tankBTN2"{
+            for index in 0..<defTankPlaceholders.count{
+                if !DefManager.hastankcheck[index]{
+                    defTankPlaceholders[index].isHidden = false
+                    tankstyle = 2
+                }
+            }
+        }
+        if touchedNode.name == "tankBTN3"{
+            for index in 0..<defTankPlaceholders.count{
+                if !DefManager.hastankcheck[index]{
+                    defTankPlaceholders[index].isHidden = false
+                    tankstyle = 3
+                }
+            }
+        }
+        if touchedNode.name == "tankBTN4"{
+            for index in 0..<defTankPlaceholders.count{
+                if !DefManager.hastankcheck[index]{
+                    defTankPlaceholders[index].isHidden = false
+                    tankstyle = 4
                 }
             }
         }
         if touchedNode.name == "hole"{
-
+            
             for index in 0..<defTankPlaceholders.count{
                 if defTankPlaceholders[index] == touchedNode{
                     DefManager.hastankcheck[index] = true
-                    setDefTank(location: defTankPlaceholders[index].position, tankstyle: 1)
+                    setDefTank(location: defTankPlaceholders[index].position, tankstyle: tankstyle)
                     hidehole()
                     break
                 }
@@ -260,37 +286,37 @@ class GameScene: SKScene {
             resetWallButtonCheatCount()
         }
     }
-
+    
     func touchMoved(toPoint pos : CGPoint) {
-
+        
     }
-
+    
     func touchUp(atPoint pos : CGPoint) {
-
+        
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchDown(atPoint: t.location(in: self))
         }
     }
-
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
     }
-
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
-
+    
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
-
-
+    
+    
     override func update(_ currentTime: TimeInterval) {
-
-
+        
+        
         if (tanks.count > 0){
             for tank in tanks{
                 for enemy in enemyTanks{
@@ -301,7 +327,7 @@ class GameScene: SKScene {
                 }
             }
         }
-
+        
         if (startingNextWave){
             startingNextWave = false
             let timeNow = Date()
@@ -382,112 +408,112 @@ class GameScene: SKScene {
                 waypointsFinalized = true
             }
             switch (currentWave){
-
-                case 1:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "silverTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 1, health: 20, speed: 0.1)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                
+            case 1:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "silverTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 1, health: 20, speed: 0.1)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 2:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "silverTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 0.5, health: 20, speed: 0.07)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 2:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "silverTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 10, fireInterval: 0.5, health: 20, speed: 0.07)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 3:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "silverTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 30, fireInterval: 0.5, health: 40, speed: 0.13)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 3:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "silverTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 30, fireInterval: 0.5, health: 40, speed: 0.13)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 4:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "greenTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.09)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 4:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "greenTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.09)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 5:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "greenTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.05)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 5:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "greenTankFast1", finalWaypoint: finalWaypoints[currentSpawn], damage: 20, fireInterval: 0.4, health: 30, speed: 0.05)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 6:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "greenTankHeave1", finalWaypoint: finalWaypoints[currentSpawn], damage: 50, fireInterval: 0.4, health: 70, speed: 0.1)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 6:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "greenTankHeave1", finalWaypoint: finalWaypoints[currentSpawn], damage: 50, fireInterval: 0.4, health: 70, speed: 0.1)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 7:
-                    if (currentSpawn < numberOfEnemy){
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "redTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 40, fireInterval: 0.3, health: 50, speed: 0.08)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                            let timeNow = Date()
-                            nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
-                        }
+                }
+                break;
+            case 7:
+                if (currentSpawn < numberOfEnemy){
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "redTank2", finalWaypoint: finalWaypoints[currentSpawn], damage: 40, fireInterval: 0.3, health: 50, speed: 0.08)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
+                        let timeNow = Date()
+                        nextSpawnTime = timeNow.addingTimeInterval(spawnInterval)
                     }
-                    break;
-                case 8:
-                    if (currentSpawn < 7){
-                        currentSpawn = 7
-                        let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
-                        if (remainingSeconds <= 0){
-                            let enemy = Enemy(imageString: "redTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 100, fireInterval: 0.2, health: 1000, speed: 0.1)
-                            addChild(enemy)
-                            enemyTanks.append(enemy)
-                            currentSpawn += 1
-                        }
+                }
+                break;
+            case 8:
+                if (currentSpawn < 7){
+                    currentSpawn = 7
+                    let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
+                    if (remainingSeconds <= 0){
+                        let enemy = Enemy(imageString: "redTankHeavy1", finalWaypoint: finalWaypoints[currentSpawn], damage: 500, fireInterval: 0.2, health: 1000, speed: 0.4)
+                        addChild(enemy)
+                        enemyTanks.append(enemy)
+                        currentSpawn += 1
                     }
-                    break;
-                default:
-                    break;
+                }
+                break;
+            default:
+                break;
             }
         }
         if (enemyTanks.count > 0){
@@ -522,7 +548,7 @@ class GameScene: SKScene {
                     GameManager.targetPoints = []
                     currentWave += 1
                 }
-
+                
             }
         }
         if (enemyBullets.count > 0){
@@ -581,27 +607,27 @@ class GameScene: SKScene {
         }
         Coins.text = "Coins:" + String(GameManager.playerCoin)
         basewallHP.text = "BaseWallHP:" + String(GameManager.baseHp)
-
+        
     }
-
+    
     func spawnBrickWall(location: CGPoint, index: Int){
         let brickWall = BrickWall(positionX: location.x, positionY: location.y, checkWallIndex: index)
         brickWalls.append(brickWall)
         addChild(brickWall)
         turnOffBrickWallPlaceholders()
     }
-
+    
     func turnOffBrickWallPlaceholders(){
         for brickWallPlaceholder in brickWallPlaceholders{
             brickWallPlaceholder.isHidden = true
             playerAction = ""
         }
     }
-
+    
     func resetWallButtonCheatCount(){
         wallButtonCheat = 3
     }
-
+    
     func setUpBrickWallPlaceholders(){
         var brickWallPlaceholder = BrickWallPlaceholder(positionX: GameManager.wallLocations[0].x, positionY: GameManager.wallLocations[0].y)
         brickWallPlaceholder.isHidden = true
@@ -632,8 +658,8 @@ class GameScene: SKScene {
         addChild(brickWallPlaceholder)
         brickWallPlaceholders.append(brickWallPlaceholder)
     }
-
-
+    
+    
     func setDefTankPlaceholders(){
         var defTankPlaceholder = DefTankPlaceHolder(positionX: DefManager.tankLocations[0].x, positionY: DefManager.tankLocations[0].y)
         defTankPlaceholder.isHidden = true
@@ -740,29 +766,29 @@ class GameScene: SKScene {
         addChild(defTankPlaceholder)
         defTankPlaceholders.append(defTankPlaceholder)
     }
-
+    
     func setDefTank (location: CGPoint, tankstyle: Int) {
         switch (tankstyle){
         case 1:
-            let tank = Tank(imageString: "ylwTank-1", damage: 10, fireInterval: 0.5)
+            let tank = Tank(imageString: "ylwTank-1", damage: 1, fireInterval: 0.5)
             tank.position = location
             addChild(tank)
             tanks.append(tank)
             break;
         case 2:
-            let tank = Tank(imageString: "ylwTank-1", damage: 20, fireInterval: 1)
+            let tank = Tank(imageString: "ylwTank-2", damage: 2, fireInterval: 1)
             tank.position = location
             addChild(tank)
             tanks.append(tank)
             break;
         case 3:
-            let tank = Tank(imageString: "ylwTank-1", damage: 50, fireInterval: 1.5)
+            let tank = Tank(imageString: "ylwTank-3", damage: 5, fireInterval: 1.5)
             tank.position = location
             addChild(tank)
             tanks.append(tank)
             break;
         case 4:
-            let tank = Tank(imageString: "ylwTank-1", damage: 100, fireInterval: 1.5)
+            let tank = Tank(imageString: "ylwTank-4", damage: 10, fireInterval: 1.5)
             tank.position = location
             addChild(tank)
             tanks.append(tank)
@@ -771,12 +797,12 @@ class GameScene: SKScene {
             break;
         }
     }
-
+    
     func hidehole () {
         for dtph in defTankPlaceholders{
             dtph.isHidden = true}
     }
-
+    
     func setUpStaticTiles(){
         // ** Object initiation to be cahnged to using GameObject class
         var river = River(positionX: -75, positionY: (screenHeight!) / 2 - 75)
@@ -912,26 +938,26 @@ class GameScene: SKScene {
         river = River(positionX: -175, positionY: (screenHeight!) / 2 - 1325)
         addChild(river)
         // Unbreakable wall starts here *******
-        var unbreakableWall = UnbreakableWall(positionX: -25, positionY: (screenHeight!) / 2 - 1075)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 25, positionY: (screenHeight!) / 2 - 1075)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 75, positionY: (screenHeight!) / 2 - 1075)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 125, positionY: (screenHeight!) / 2 - 1075)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1075)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1125)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1175)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1225)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1275)
-        addChild(unbreakableWall)
-        unbreakableWall = UnbreakableWall(positionX: 175, positionY: (screenHeight!) / 2 - 1325)
-        addChild(unbreakableWall)
+        river = River(positionX: -25, positionY: (screenHeight!) / 2 - 1075)
+        addChild(river)
+        river = River(positionX: 25, positionY: (screenHeight!) / 2 - 1075)
+        addChild(river)
+        river = River(positionX: 75, positionY: (screenHeight!) / 2 - 1075)
+        addChild(river)
+        river = River(positionX: 125, positionY: (screenHeight!) / 2 - 1075)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1075)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1125)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1175)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1225)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1275)
+        addChild(river)
+        river = River(positionX: 175, positionY: (screenHeight!) / 2 - 1325)
+        addChild(river)
         // Unbreakable wall ends here ******
         // Base brick wall starts here ******
         var baseWall = BaseWall(positionX: -25, positionY: (screenHeight!) / 2 - 1225)

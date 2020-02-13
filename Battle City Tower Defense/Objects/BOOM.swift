@@ -1,22 +1,28 @@
 //
-//  leftbutton-1.swift
+//  BOOM.swift
 //  Battle City Tower Defense
 //
-//  Created by Supreet on 2020-02-11.
+//  Created by Jason on 2020-02-12.
 //  Copyright © 2020 CentennialCollege. All rights reserved.
 //
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
-class LeftButtonOne: GameObject
+class BOOM: GameObject
 {
+    var boomlocation: CGPoint?
+
     
+
     //constructor
-    init()
+    init(location: CGPoint)
     {
-        super.init(imageString: "tankBTN1", initialScale: 2)
+        super.init(imageString: "boom", initialScale: 2)
+        boomlocation = location
         Start()
+        
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -31,7 +37,7 @@ class LeftButtonOne: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: -250, y: -410)
+        self.position = boomlocation!
     }
     
     override func Update()
@@ -39,4 +45,3 @@ class LeftButtonOne: GameObject
         
     }
 }
-

@@ -17,7 +17,7 @@ class LeftButtonTwo: GameObject
     //constructor
     init()
     {
-        super.init(imageString: "YlwTankButton2", initialScale: 4)
+        super.init(imageString: "tankBTN2", initialScale: 2)
         Start()
     }
     
@@ -33,7 +33,7 @@ class LeftButtonTwo: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: -250, y: -480)
+        self.position = CGPoint(x: -250, y: -475)
     }
     
     override func Update()

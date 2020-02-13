@@ -1,6 +1,7 @@
 
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 class CollisionManager
 {
@@ -22,7 +23,7 @@ class CollisionManager
         let P2HalfHeight = object2.height! * 0.5
         let halfHeights = P1HalfHeight + P2HalfHeight
         
-        if(squaredDistance(point1: P1, point2: P2) < (halfHeights * halfHeights + 500))
+        if(squaredDistance(point1: P1, point2: P2) < (halfHeights * halfHeights))
         {
             switch object2.name {
             case "largeBrickWall":
@@ -140,40 +141,50 @@ class CollisionManager
                 GameManager.gameState = "gameOver"
                 break
             case "silverTank2",
-                 "silverTaankFast1",
+                 "silverTankFast1",
                  "silverTankHeavy1",
                  "greenTank2",
                  "greenTankFast1",
-                 "greenTankHeavy1",
+                 "greenTankHeave1",
                  "redTank2",
-                 "redTankHeave1":
-                let enemy: Enemy = object2 as! Enemy
-                 let bullet: Bullet = object1 as! Bullet
-                let gameScene: GameScene = object2.parent as! GameScene
-                GameManager.baseHp -= bullet.power
-                var bulletRemoveIndex: Int?
-                var tankRemoveIndex: Int?
-                var removeBullet = false
-                //var removeEnemy = false
-                for index in 0..<gameScene.enemyBullets.count{
-                    if gameScene.enemyBullets[index] == bullet{
-                        removeBullet = true
-                        bulletRemoveIndex = index
+                 "redTankHeavy1":
+                if object1.position.y < -460 {
+                    print("1")
+                } else {
+                    print("2")
+                    let enemy: Enemy = object2 as! Enemy
+                    let bullet: Bullet = object1 as! Bullet
+                    let gameScene: GameScene = object2.parent as! GameScene
+                    var bulletRemoveIndex: Int?
+                    var tankRemoveIndex: Int?
+                    var removeBullet = false
+                    //var removeEnemy = false
+                    for index in 0..<gameScene.enemyBullets.count{
+                        if gameScene.enemyBullets[index] == bullet{
+                            removeBullet = true
+                            bulletRemoveIndex = index
+                        }
                     }
-                }
-                for index in 0..<gameScene.enemyTanks.count{
-                    if gameScene.enemyTanks[index] == enemy{
-                        tankRemoveIndex = index
+                    for index in 0..<gameScene.enemyTanks.count{
+                        if gameScene.enemyTanks[index] == enemy{
+                            tankRemoveIndex = index
+                        }
                     }
-                }
-                if (removeBullet){
-                    gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
-                    bullet.removeFromParent()
-                }
-                enemy.tankHealth -= bullet.power
-                if enemy.tankHealth <= 0{
-                    gameScene.enemyTanks.remove(at: tankRemoveIndex!)
-                    enemy.removeFromParent()
+                    if (removeBullet){
+                        gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+                        bullet.removeFromParent()
+                    }
+                    enemy.tankHealth -= bullet.power
+                    if enemy.tankHealth <= 0{
+                        gameScene.enemyTanks.remove(at: tankRemoveIndex!)
+                        
+                        let boom = BOOM(location: enemy.position)
+                        gameScene.addChild(boom)
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+                            boom.removeFromParent()
+                        }
+                        enemy.removeFromParent()
+                    }
                 }
                 break
                 

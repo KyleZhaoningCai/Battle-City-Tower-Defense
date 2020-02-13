@@ -43,6 +43,7 @@
 		A814615C23F3908F0088FC32 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = A814615B23F3908F0088FC32 /* Wall.swift */; };
 		C34A05C123EFBD93007685B7 /* StartScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C34A05C023EFBD93007685B7 /* StartScene.sks */; };
 		C34A05C423EFBDE7007685B7 /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C34A05C323EFBDE7007685B7 /* StartScene.swift */; };
+		C3D2BA4323F4DE5600B27D11 /* BOOM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D2BA4223F4DE5600B27D11 /* BOOM.swift */; };
 		C3D5A3B423F336BA00C32600 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D5A3B323F336BA00C32600 /* AVFoundation.framework */; };
 		C3D5A3B623F336D100C32600 /* start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C3D5A3B523F336D100C32600 /* start.mp3 */; };
 		C3D5A3B823F345CB00C32600 /* GIFSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D5A3B723F345CB00C32600 /* GIFSupport.swift */; };
@@ -93,6 +94,7 @@
 		A814615B23F3908F0088FC32 /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		C34A05C023EFBD93007685B7 /* StartScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartScene.sks; sourceTree = "<group>"; };
 		C34A05C323EFBDE7007685B7 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		C3D2BA4223F4DE5600B27D11 /* BOOM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOOM.swift; sourceTree = "<group>"; };
 		C3D5A3B323F336BA00C32600 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		C3D5A3B523F336D100C32600 /* start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = start.mp3; sourceTree = "<group>"; };
 		C3D5A3B723F345CB00C32600 /* GIFSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFSupport.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				6F60A6AD23F3796F00054BC4 /* Player.swift */,
 				6F60A6B823F3B8A500054BC4 /* Hit.swift */,
 				6F60A6BA23F3CEFC00054BC4 /* DestroyedBase.swift */,
+				C3D2BA4223F4DE5600B27D11 /* BOOM.swift */,
 				C3D5A3C323F3685A00C32600 /* Tank.swift */,
 			);
 			path = Objects;
@@ -324,6 +327,7 @@
 				C3D5A3B823F345CB00C32600 /* GIFSupport.swift in Sources */,
 				C3D5A3C223F35C0700C32600 /* DefTankPlaceHolder.swift in Sources */,
 				6F18776323F0753000525AA8 /* GameObject.swift in Sources */,
+				C3D2BA4323F4DE5600B27D11 /* BOOM.swift in Sources */,
 				A814615023F35CAA0088FC32 /* LeftButtonOne.swift in Sources */,
 				6F05D68723EEF915007B3F3E /* GameViewController.swift in Sources */,
 				6F18777323F0FDB400525AA8 /* BrickWall.swift in Sources */,

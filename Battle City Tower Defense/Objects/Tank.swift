@@ -38,7 +38,7 @@ class Tank: GameObject
     // constructor
     init(imageString: String, damage: Int, fireInterval: TimeInterval)
     {
-        super.init(imageString: imageString, initialScale: 3.0)
+        super.init(imageString: imageString, initialScale: 1.5)
         isStoppingPoints.append(true)
         targetPoints.append(GameManager.basePosition)
         tankFireInterval = fireInterval
@@ -91,6 +91,8 @@ class Tank: GameObject
             }
             let timeNow = Date()
             nextFireTime = timeNow.addingTimeInterval(tankFireInterval)
+            let lookAtConstraint = SKConstraint.orient(to: object1p, offset: SKRange(constantValue: -CGFloat.pi / 2))
+            self.constraints = [ lookAtConstraint ]
         }
     }
     
