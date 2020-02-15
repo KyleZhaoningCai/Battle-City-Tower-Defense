@@ -56,6 +56,7 @@ class GameScene: SKScene {
     var base: Base?
     var playerAction: String = ""
     var enemyBullets: [Bullet] = []
+    var deftankBullets: [DefBullet] = []
     var currentWaypoint: Int = 99
     var brickWalls: [BrickWall] = []
     var baseWalls: [BaseWall] = []
@@ -563,13 +564,15 @@ class GameScene: SKScene {
                         CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: baseWall)
                     }
                 }
-                if (tanks.count > 0) {
-                    for enemytank in enemyTanks {
-                        CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: enemytank)
-                    }
-                }
                 if (GameManager.baseHp <= 0 && base != nil){
                     CollisionManager.squaredRadiusCheck(scene: self, object1: enemyBullet, object2: base!)
+                }
+            }
+        }
+        if (tanks.count > 0) {
+            for tankBullet in deftankBullets {
+                for enemytank in enemyTanks {
+                    DefTankAtkManager.squaredRadiusCheck(scene: self, object1: tankBullet, object2: enemytank)
                 }
             }
         }

@@ -140,54 +140,50 @@ class CollisionManager
                 gameScene.addChild(destroyedBase)
                 GameManager.gameState = "gameOver"
                 break
-            case "silverTank2",
-                 "silverTankFast1",
-                 "silverTankHeavy1",
-                 "greenTank2",
-                 "greenTankFast1",
-                 "greenTankHeave1",
-                 "redTank2",
-                 "redTankHeavy1":
-                if object1.position.y < -460 {
-                    print("1")
-                } else {
-                    print("2")
-                    let enemy: Enemy = object2 as! Enemy
-                    let bullet: Bullet = object1 as! Bullet
-                    let gameScene: GameScene = object2.parent as! GameScene
-                    var bulletRemoveIndex: Int?
-                    var tankRemoveIndex: Int?
-                    var removeBullet = false
-                    //var removeEnemy = false
-                    for index in 0..<gameScene.enemyBullets.count{
-                        if gameScene.enemyBullets[index] == bullet{
-                            removeBullet = true
-                            bulletRemoveIndex = index
-                        }
-                    }
-                    for index in 0..<gameScene.enemyTanks.count{
-                        if gameScene.enemyTanks[index] == enemy{
-                            tankRemoveIndex = index
-                        }
-                    }
-                    if (removeBullet){
-                        gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
-                        bullet.removeFromParent()
-                    }
-                    enemy.tankHealth -= bullet.power
-                    if enemy.tankHealth <= 0{
-                        gameScene.enemyTanks.remove(at: tankRemoveIndex!)
-                        
-                        let boom = BOOM(location: enemy.position)
-                        gameScene.addChild(boom)
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
-                            boom.removeFromParent()
-                        }
-                        enemy.removeFromParent()
-                    }
-                }
-                break
-                
+//            case "silverTank2",
+//                 "silverTankFast1",
+//                 "silverTankHeavy1",
+//                 "greenTank2",
+//                 "greenTankFast1",
+//                 "greenTankHeave1",
+//                 "redTank2",
+//                 "redTankHeavy1":
+//                    let enemy: Enemy = object2 as! Enemy
+//                    let bullet: Bullet = object1 as! Bullet
+//                    let gameScene: GameScene = object2.parent as! GameScene
+//                    var bulletRemoveIndex: Int?
+//                    var tankRemoveIndex: Int?
+//                    var removeBullet = false
+//                    //var removeEnemy = false
+//                    for index in 0..<gameScene.enemyBullets.count{
+//                        if gameScene.enemyBullets[index] == bullet{
+//                            removeBullet = true
+//                            bulletRemoveIndex = index
+//                        }
+//                    }
+//                    for index in 0..<gameScene.enemyTanks.count{
+//                        if gameScene.enemyTanks[index] == enemy{
+//                            tankRemoveIndex = index
+//                        }
+//                    }
+//                    if (removeBullet){
+//                        gameScene.enemyBullets.remove(at: bulletRemoveIndex!)
+//                        bullet.removeFromParent()
+//                    }
+//                    enemy.tankHealth -= bullet.power
+//                    if enemy.tankHealth <= 0{
+//                        gameScene.enemyTanks.remove(at: tankRemoveIndex!)
+//                        
+//                        let boom = BOOM(location: enemy.position)
+//                        gameScene.addChild(boom)
+//                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2) {
+//                            boom.removeFromParent()
+//                        }
+//                        enemy.removeFromParent()
+//                    }
+//                
+//                break
+//                
             default:
                 break
             }

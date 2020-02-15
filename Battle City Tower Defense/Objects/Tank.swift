@@ -82,9 +82,9 @@ class Tank: GameObject
     
     func fireBullet(target1: CGPoint, target2: CGPoint){
         if (nextFireTime!.timeIntervalSinceNow <= 0){
-            let bullet = Bullet(positionX: target1.x, positionY: target1.y, target: target2, damage: tankDamage)
+            let bullet = DefBullet(positionX: target1.x, positionY: target1.y, target: target2, damage: tankDamage)
             let gameScene: GameScene = self.parent as! GameScene
-            gameScene.enemyBullets.append(bullet)
+            gameScene.deftankBullets.append(bullet)
             gameScene.addChild(bullet)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
                 bullet.removeFromParent()
