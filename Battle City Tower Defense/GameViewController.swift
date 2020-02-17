@@ -1,16 +1,18 @@
-//
-//  GameViewController.swift
-//  Battle City Tower Defense
-//
-//  Created by Zhaoning Cai on 2020-02-08.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: GameViewController.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import UIKit
 import SpriteKit
 import GameplayKit
 import AVFoundation
 
+// The game view controller class
 class GameViewController: UIViewController {
     
     @IBOutlet weak var StartBtn: UIButton!
@@ -21,29 +23,6 @@ class GameViewController: UIViewController {
     {
         super.viewDidLoad()
         SetScene(sceneName: "StartScene")
-        StartBtn.isHidden = true
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0) {
-            self.StartBtn.isHidden = false
-        }
-        
-        let audioplayer = Bundle.main.path(forResource: "start", ofType: "mp3")
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: audioplayer!))
-        }
-        catch {
-            print(error)
-        }
-    }
-    
-    @IBAction func StartBtn(_ sender: UIButton)
-    {
-        StartBtn.isHidden = true
-        
-        SetScene(sceneName: "GameScene")
-        
-        audioPlayer.play()
-        
     }
     
     func SetScene(sceneName: String)

@@ -1,10 +1,11 @@
-//
-//  GameScene.swift
-//  Battle City Tower Defense
-//
-//  Created by Zhaoning Cai on 2020-02-08.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: GameScene.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import UIKit
 import AVFoundation
@@ -18,15 +19,21 @@ let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 
 //let basewallHP = SKLabelNode(text: "BaseWallHP:100")
 let Coins = SKLabelNode(text: "Coins:0")
-let Tank1 = SKLabelNode(text: "1:")
-let Tank2 = SKLabelNode(text: "2:")
-let Tank3 = SKLabelNode(text: "3:")
-let Tank4 = SKLabelNode(text: "4:")
-let wall = SKLabelNode(text: "5:")
+let Tank1 = SKLabelNode(text: "100")
+let Tank2 = SKLabelNode(text: "200")
+let Tank3 = SKLabelNode(text: "300")
+let Tank4 = SKLabelNode(text: "400")
+let wall = SKLabelNode(text: "300")
+let msg = SKLabelNode(text: "")
+let timer = SKLabelNode(text: "")
 
+
+// The main game scene
 class GameScene: SKScene {
     
-    let waveInterval: Double = 5
+    // Instance members
+    let waveInterval: Double = 22.5
+    let bonusInterval: Double = 30	
     let spawnInterval: Double = 2
     let numberOfEnemy = 8
     let finalWaypoints: [CGPoint] = [
@@ -39,9 +46,11 @@ class GameScene: SKScene {
         CGPoint(x: -30, y:  -475),
         CGPoint(x: -90, y:  -475)
     ]
+    let cheatSequence: String = "HWWWHHWH"
     
-    var tankstyle: Int = 0
-    
+    var nextBonueTime = Date()
+    var cheatActivated: Bool = false
+    var msgVanishTime = Date()
     var currentWave = 1
     var currentSpawn = 0
     var spawningEnemyTanks = false
@@ -60,13 +69,16 @@ class GameScene: SKScene {
     var currentWaypoint: Int = 99
     var brickWalls: [BrickWall] = []
     var baseWalls: [BaseWall] = []
-    var wallButtonCheat: Int = 3
+    var cheatString: String = ""
     var waypointsFinalized = false
     var player: Player?
-    
+    var backgroundMusicPlayer: AVAudioPlayer?
+    var enteringEndScene: Bool = false
+    var enterEndSceneTime: Date = Date()
     var enemycounter: Int = -1
+    var coinBag: CoinBag?
     
-    
+    // Set up various GameObjects and background music
     override func didMove(to view: SKView) {
         
         screenWidth = frame.width
@@ -104,146 +116,179 @@ class GameScene: SKScene {
         addChild(brickWall)
         
         
-        basewallHP.fontSize = 25
+        basewallHP.fontSize = 36
         basewallHP.fontColor = SKColor.white
-        basewallHP.fontName = "SF Mono"
+        basewallHP.fontName = "SHPinscher-Regular"
         basewallHP.numberOfLines = 0
         basewallHP.preferredMaxLayoutWidth = 120
         
-        basewallHP.position = CGPoint(x:-220,y:570)
+        basewallHP.position = CGPoint(x:-205, y:530)
         addChild(basewallHP)
         
         
-        Coins.fontSize = 25
+        Coins.fontSize = 36
         Coins.fontColor = SKColor.white
-        Coins.fontName = "SF Mono"
-        Coins.position = CGPoint(x:220,y:595)
+        Coins.fontName = "SHPinscher-Regular"
+        Coins.position = CGPoint(x:190, y:560)
         addChild(Coins)
         
         Tank1.fontSize = 25
         Tank1.fontColor = SKColor.white
-        Tank1.fontName = "SF Mono"
-        Tank1.position = CGPoint(x: -295, y: -400)
+        Tank1.fontName = "SHPinscher-Regular"
+        Tank1.position = CGPoint(x: -290, y: -400)
         addChild(Tank1)
         
         Tank2.fontSize = 25
         Tank2.fontColor = SKColor.white
-        Tank2.fontName = "SF Mono"
-        Tank2.position = CGPoint(x: -295, y: -465)
+        Tank2.fontName = "SHPinscher-Regular"
+        Tank2.position = CGPoint(x: -290, y: -470)
         addChild(Tank2)
         
         
         
         Tank3.fontSize = 25
         Tank3.fontColor = SKColor.white
-        Tank3.fontName = "SF Mono"
-        Tank3.position = CGPoint(x: -295, y: -530)
+        Tank3.fontName = "SHPinscher-Regular"
+        Tank3.position = CGPoint(x: -290, y: -540)
         addChild(Tank3)
         
         
         Tank4.fontSize = 25
         Tank4.fontColor = SKColor.white
-        Tank4.fontName = "SF Mono"
-        Tank4.position = CGPoint(x: -295, y: -595)
+        Tank4.fontName = "SHPinscher-Regular"
+        Tank4.position = CGPoint(x: -290, y: -610)
         addChild(Tank4)
         
         wall.fontSize = 25
         wall.fontColor = SKColor.white
-        wall.fontName = "SF Mono"
-        wall.position = CGPoint(x: 215, y: -605)
+        wall.fontName = "SHPinscher-Regular"
+        wall.position = CGPoint(x: 290, y: -505)
         addChild(wall)
+        
+        msg.fontSize = 46
+        msg.fontColor = SKColor.white
+        msg.fontName = "SHPinscher-Regular"
+        msg.position = CGPoint(x: 0, y: 350)
+        msg.zPosition = 15
+        addChild(msg)
+        
+        timer.fontSize = 46
+        timer.fontColor = SKColor.white
+        timer.fontName = "SHPinscher-Regular"
+        timer.position = CGPoint(x: 0, y: 400)
+        timer.zPosition = 15
+        addChild(timer)
         // ***
+        
+        nextBonueTime = Date().addingTimeInterval(bonusInterval)
         
         // preload sounds
         do {
-            let sounds:[String] = ["destroy", "fire", "tankTravel", "wallHit"]
-            for sound in sounds
-            {
-                let path: String = Bundle.main.path(forResource: sound, ofType: "wav")!
-                let url: URL = URL(fileURLWithPath: path)
-                let player: AVAudioPlayer = try AVAudioPlayer(contentsOf: url)
-                player.prepareToPlay()
-            }
+            let path: String = Bundle.main.path(forResource: "GameBackground", ofType: "mp3")!
+            let url: URL = URL(fileURLWithPath: path)
+            backgroundMusicPlayer = try AVAudioPlayer(contentsOf: url)
+            backgroundMusicPlayer?.numberOfLoops = -1
+            backgroundMusicPlayer?.play()
         } catch {
         }
     }
     
-    
+    // Check what GameObject the player touched
     func touchDown(atPoint pos : CGPoint) {
         let touchedNode = atPoint(pos)
+        // If the player touched one of the tank buttons, turn on tank location placeholders
         if touchedNode.name == "tankBTN1"{
-            for index in 0..<defTankPlaceholders.count{
-                if !DefManager.hastankcheck[index]{
-                    defTankPlaceholders[index].isHidden = false
-                    tankstyle = 1
-                }
+            cheatStringUpdate(character: "T")
+            if (playerAction == "makeTank1"){
+                playerAction = ""
+                turnOffDefTankPlaceholders()
+            }else{
+                playerAction = "makeTank1"
+                turnOnDefTankPlaceholders()
+                turnOffBrickWallPlaceholders()
             }
         }
         if touchedNode.name == "tankBTN2"{
-            for index in 0..<defTankPlaceholders.count{
-                if !DefManager.hastankcheck[index]{
-                    defTankPlaceholders[index].isHidden = false
-                    tankstyle = 2
-                }
+            cheatStringUpdate(character: "T")
+            if (playerAction == "makeTank2"){
+                playerAction = ""
+                turnOffDefTankPlaceholders()
+            }else{
+                playerAction = "makeTank2"
+                turnOnDefTankPlaceholders()
+                turnOffBrickWallPlaceholders()
             }
         }
         if touchedNode.name == "tankBTN3"{
-            for index in 0..<defTankPlaceholders.count{
-                if !DefManager.hastankcheck[index]{
-                    defTankPlaceholders[index].isHidden = false
-                    tankstyle = 3
-                }
+            cheatStringUpdate(character: "T")
+            if (playerAction == "makeTank3"){
+                playerAction = ""
+                turnOffDefTankPlaceholders()
+            }else{
+                playerAction = "makeTank3"
+                turnOnDefTankPlaceholders()
+                turnOffBrickWallPlaceholders()
             }
         }
-        if touchedNode.name == "tankBTN4"{
-            for index in 0..<defTankPlaceholders.count{
-                if !DefManager.hastankcheck[index]{
-                    defTankPlaceholders[index].isHidden = false
-                    tankstyle = 4
-                }
+        if touchedNode.name == "TankBTN4"{
+            cheatStringUpdate(character: "T")
+            if (playerAction == "makeTank4"){
+                playerAction = ""
+                turnOffDefTankPlaceholders()
+            }else{
+                playerAction = "makeTank4"
+                turnOnDefTankPlaceholders()
+                turnOffBrickWallPlaceholders()
             }
         }
+        // If player touched a tank placeholder, order the player aircraft to place a tank
         if touchedNode.name == "hole"{
-            
+            cheatStringUpdate(character: "P")
             for index in 0..<defTankPlaceholders.count{
                 if defTankPlaceholders[index] == touchedNode{
-                    DefManager.hastankcheck[index] = true
-                    setDefTank(location: defTankPlaceholders[index].position, tankstyle: tankstyle)
-                    hidehole()
+                    player?.currentTask = playerAction
+                    player?.itemIndex = index
+                    player?.targetLocation = defTankPlaceholders[index].position
+                    player?.Move()
+                    playerAction = ""
+                    turnOffDefTankPlaceholders()
                     break
                 }
             }
         }
+        // If player touched the wall button, turn on all wall placeholders
         if touchedNode.name == "wallBtn"{
-            wallButtonCheat -= 1
+            cheatStringUpdate(character: "W")
             if (!spawningEnemyTanks){
                 if (playerAction == "makeWall"){
                     playerAction = ""
+                    turnOffBrickWallPlaceholders()
                 }else{
                     playerAction = "makeWall"
-                }
-                if (playerAction == "makeWall"){
-                    for index in 0..<brickWallPlaceholders.count{
-                        if !GameManager.hasWallCheck[index]{
-                            brickWallPlaceholders[index].isHidden = false
-                        }
-                    }
-                }
-                else{
-                    turnOffBrickWallPlaceholders()
+                    turnOnBrickWallPlaceholders()
+                    turnOffDefTankPlaceholders()
                 }
             }
+            // Do not allow player to place a wall when enemies are in the scene
+            else{
+                setMsg(msgContent: "Can't place wall now")
+            }
         }
+        // If the player touched the hammer butotn
         if touchedNode.name == "hammerbutton"{
-            resetWallButtonCheatCount()
+            cheatStringUpdate(character: "H")
+            turnOffDefTankPlaceholders()
+            turnOffBrickWallPlaceholders()
             if (playerAction == "hammerDown"){
                 playerAction = ""
             }else{
                 playerAction = "hammerDown"
+                setMsg(msgContent: "Hammer selected")
             }
         }
+        // If player just touched hammer button before this, destroy player placed wall
         if touchedNode.name == "largeBrickWall"{
-            resetWallButtonCheatCount()
+            cheatStringUpdate(character: "B")
             if (playerAction == "hammerDown"){
                 for index in 0..<brickWalls.count{
                     if brickWalls[index] == touchedNode{
@@ -251,40 +296,49 @@ class GameScene: SKScene {
                         player?.itemIndex = index
                         player?.targetLocation = brickWalls[index].position
                         player?.Move()
+                        playerAction = ""
                         break
                     }
                 }
             }
         }
+        // If player touched wall placeholder, order the player aircraft to place a wall
         if touchedNode.name == "placeholder"{
-            resetWallButtonCheatCount()
+            cheatStringUpdate(character: "P")
             for index in 0..<brickWallPlaceholders.count{
                 if brickWallPlaceholders[index] == touchedNode{
                     player?.currentTask = "wall"
                     player?.itemIndex = index
                     player?.targetLocation = brickWallPlaceholders[index].position
                     player?.Move()
+                    playerAction = ""
+                    turnOffBrickWallPlaceholders()
                     break
                 }
             }
         }
-        if (touchedNode.name == "silverTank2" || touchedNode.name == "silverTankFast1" || touchedNode.name == "silverTankHeavy1" || touchedNode.name == "greenTank2" || touchedNode.name == "greenTankFast1" || touchedNode.name == "greenTankHeave1" || touchedNode.name == "redTank2" || touchedNode.name == "redTankHeave1"){
-            if (wallButtonCheat <= 0){
-                let enemy: Enemy = touchedNode as! Enemy
-                enemy.removeHp(hp: 99999)
-                if (enemy.tankHealth <= 0){
-                    if (enemyTanks.count > 0){
-                        for index in 0..<enemyTanks.count{
-                            if enemy == enemyTanks[index]{
-                                enemy.removeFromParent()
-                                enemyTanks.remove(at: index)
-                                break
-                            }
-                        }
+        // If player just touched hammer button before this, destroy defending tank
+        if (touchedNode.name == "ylwTank-1" || touchedNode.name == "ylwTank-2" || touchedNode.name == "ylwTank-3" || touchedNode.name == "ylwTank-4"){
+            cheatStringUpdate(character: "D")
+            if (playerAction == "hammerDown"){
+                for index in 0..<tanks.count{
+                    if tanks[index] == touchedNode{
+                        player?.currentTask = "destroyTank"
+                        player?.itemIndex = index
+                        player?.targetLocation = tanks[index].position
+                        player?.Move()
+                        playerAction = ""
+                        break
                     }
                 }
             }
-            resetWallButtonCheatCount()
+        }
+        // If player touched coin bag, award player with 500 coins
+        if (touchedNode.name == "coinBag"){
+            touchedNode.removeFromParent()
+            let coinSound = SKAction.playSoundFileNamed("coin", waitForCompletion: false)
+            run(coinSound)
+            GameManager.playerCoin += 500
         }
     }
     
@@ -297,9 +351,7 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.touchDown(atPoint: t.location(in: self))
-        }
+        for t in touches { self.touchDown(atPoint: t.location(in: self))  }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -314,10 +366,10 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    
+    // The update function
     override func update(_ currentTime: TimeInterval) {
         
-        
+        // If there are defending tanks, check if enemy tanks are in firing range
         if (tanks.count > 0){
             for tank in tanks{
                 for enemy in enemyTanks{
@@ -329,15 +381,19 @@ class GameScene: SKScene {
             }
         }
         
+        // If starting next wave, start next wave count down
         if (startingNextWave){
             startingNextWave = false
             let timeNow = Date()
             endTime = timeNow.addingTimeInterval(waveInterval)
         }
         else{
+            // If wave already started, and enemies are not spawnning yet, counting down
             if (!spawningEnemyTanks){
                 let remainingSeconds = Int(endTime!.timeIntervalSinceNow)
+                timer.text = "Next wave in " + String(remainingSeconds) + " seconds"
                 if (remainingSeconds <= 0){
+                    timer.text = ""
                     spawningEnemyTanks = true
                     enemyTanks = []
                     currentSpawn = 0
@@ -348,7 +404,9 @@ class GameScene: SKScene {
                 }
             }
         }
+        // If spawnning enemy tanks
         if (spawningEnemyTanks){
+            // If not finalized, populate all waypoints
             if (!waypointsFinalized){
                 GameManager.waypoints.append(CGPoint(x: 0, y:  425))
                 GameManager.isStoppingPoints.append(false)
@@ -408,8 +466,9 @@ class GameScene: SKScene {
                 GameManager.targetPoints.append(CGPoint(x: 1000, y: 1000))
                 waypointsFinalized = true
             }
+            
+            // Spawn different enemies in different wave
             switch (currentWave){
-                
             case 1:
                 if (currentSpawn < numberOfEnemy){
                     let remainingSeconds = Int(nextSpawnTime!.timeIntervalSinceNow)
@@ -517,10 +576,12 @@ class GameScene: SKScene {
                 break;
             }
         }
+        // If there are enemy tanks
         if (enemyTanks.count > 0){
             var stoppingOthers = false
             for tank in enemyTanks
             {
+                // If a leading tank is firing, stop other tanks
                 if (tank.stopOthers){
                     stoppingOthers = true
                     currentWaypoint = tank.currentWaypoint
@@ -539,6 +600,7 @@ class GameScene: SKScene {
             }
         }
         else{
+            // If spawnning enemy tanks, spawn a tank every 2 seconds
             if (spawningEnemyTanks){
                 if (currentWave < 8 && currentSpawn >= numberOfEnemy){
                     spawningEnemyTanks = false
@@ -552,6 +614,7 @@ class GameScene: SKScene {
                 
             }
         }
+        // If there are enemy bullets, check their collision with various GameObjects
         if (enemyBullets.count > 0){
             for enemyBullet in enemyBullets{
                 if (brickWalls.count > 0){
@@ -569,28 +632,86 @@ class GameScene: SKScene {
                 }
             }
         }
-        if (tanks.count > 0) {
+        // If there are enemy tanks and defending tank bullets, check their collision
+        if (enemyTanks.count > 0 && deftankBullets.count > 0) {
             for tankBullet in deftankBullets {
                 for enemytank in enemyTanks {
                     DefTankAtkManager.squaredRadiusCheck(scene: self, object1: tankBullet, object2: enemytank)
                 }
             }
         }
+        // If the player has a task, check if the player aircraft has reached its target
+        // When reached, completes its action
         if (player?.currentTask != ""){
             if (player?.getDistance())! < 5{
                 if (player?.currentTask == "wall"){
                     if (GameManager.playerCoin >= 300){
                         GameManager.hasWallCheck[(player?.itemIndex)!] = true
+                        brickWallPlaceholders[(player?.itemIndex)!].isHidden = true
                         spawnBrickWall(location: brickWallPlaceholders[(player?.itemIndex)!].position, index: (player?.itemIndex)!)
                         GameManager.playerCoin -= 300
                     }else{
-                        // warn player not enough coins
+                        setMsg(msgContent: "Not enough coins")
+                    }
+                    player?.clearAction()
+                }
+                else if (player?.currentTask == "makeTank1" || player?.currentTask == "makeTank2" || player?.currentTask == "makeTank3" || player?.currentTask == "makeTank4"){
+                    if (player?.currentTask == "makeTank1" && GameManager.playerCoin >= 100){
+                        setDefTank(location: defTankPlaceholders[(player?.itemIndex)!].position, tankstyle: 1)
+                        for index in 0..<DefManager.tankLocations.count{
+                            if DefManager.tankLocations[index] == defTankPlaceholders[(player?.itemIndex)!].position{
+                                DefManager.hastankcheck[index] = true
+                                defTankPlaceholders[(player?.itemIndex)!].isHidden = true
+                                break
+                            }
+                        }
+                        GameManager.playerCoin -= 100
+                    }
+                    else if (player?.currentTask == "makeTank2" && GameManager.playerCoin >= 200){
+                        setDefTank(location: defTankPlaceholders[(player?.itemIndex)!].position, tankstyle: 2)
+                        for index in 0..<DefManager.tankLocations.count{
+                            if DefManager.tankLocations[index] == defTankPlaceholders[(player?.itemIndex)!].position{
+                                DefManager.hastankcheck[index] = true
+                                defTankPlaceholders[(player?.itemIndex)!].isHidden = true
+                                break
+                            }
+                        }
+                        GameManager.playerCoin -= 200
+                    }
+                    else if (player?.currentTask == "makeTank3" && GameManager.playerCoin >= 300){
+                        setDefTank(location: defTankPlaceholders[(player?.itemIndex)!].position, tankstyle: 3)
+                        for index in 0..<DefManager.tankLocations.count{
+                            if DefManager.tankLocations[index] == defTankPlaceholders[(player?.itemIndex)!].position{
+                                DefManager.hastankcheck[index] = true
+                                defTankPlaceholders[(player?.itemIndex)!].isHidden = true
+                                break
+                            }
+                        }
+                        GameManager.playerCoin -= 300
+                    }
+                    else if (player?.currentTask == "makeTank4" && GameManager.playerCoin >= 400){
+                        setDefTank(location: defTankPlaceholders[(player?.itemIndex)!].position, tankstyle: 4)
+                        for index in 0..<DefManager.tankLocations.count{
+                            if DefManager.tankLocations[index] == defTankPlaceholders[(player?.itemIndex)!].position{
+                                DefManager.hastankcheck[index] = true
+                                defTankPlaceholders[(player?.itemIndex)!].isHidden = true
+                                break
+                            }
+                        }
+                        GameManager.playerCoin -= 400
+                    }
+                    else{
+                        setMsg(msgContent: "Not enough coins")
                     }
                     player?.clearAction()
                 }
                 else if (player?.currentTask == "destroyWall"){
                     let wallToRemove = brickWalls[player!.itemIndex]
-                    GameManager.hasWallCheck[player!.itemIndex] = false
+                    for index in 0..<GameManager.wallLocations.count{
+                        if GameManager.wallLocations[index] == wallToRemove.position{
+                            GameManager.hasWallCheck[index] = false
+                        }
+                    }
                     for index in 0..<enemyTanks.count{
                         enemyTanks[index].stopOthers = false
                         enemyTanks[index].state = "stopped"
@@ -606,31 +727,138 @@ class GameScene: SKScene {
                     run(destroyWallSound)
                     player?.clearAction()
                 }
+                else if (player?.currentTask == "destroyTank"){
+                    let tankToRemove = tanks[player!.itemIndex]
+                    tanks.remove(at: player!.itemIndex)
+                    for index in 0..<DefManager.tankLocations.count{
+                        if DefManager.tankLocations[index] == tankToRemove.position{
+                            DefManager.hastankcheck[index] = false
+                            break
+                        }
+                    }
+                    tankToRemove.removeFromParent()
+                    let destroyWallSound = SKAction.playSoundFileNamed("destroy", waitForCompletion: false)
+                    run(destroyWallSound)
+                    player?.clearAction()
+                }
             }
         }
+        // Every 30 seconds, spawn a coin bag that flies across the screen
+        if (nextBonueTime.timeIntervalSinceNow <= 0){
+            let sideFactor = Int.random(in: 0...3)
+            if (sideFactor == 0 || sideFactor == 1){
+                let xLeft = -370
+                let yLeft = Int.random(in: -500...500)
+                let xRight = 370
+                let yRight = Int.random(in: -500...500)
+                if (sideFactor == 0){
+                  coinBag = CoinBag(spawnLocation: CGPoint(x: xLeft, y: yLeft), targetLocation: CGPoint(x: xRight, y: yRight))
+                }
+                else{
+                    coinBag = CoinBag(spawnLocation: CGPoint(x: xRight, y: yRight), targetLocation: CGPoint(x: xLeft, y: yLeft))
+                }
+            }
+            else if (sideFactor == 2 || sideFactor == 3){
+                let xTop = Int.random(in: -250...250)
+                let yTop = 730
+                let xBot = Int.random(in: -250...250)
+                let yBot = -730
+                if (sideFactor == 2){
+                    coinBag = CoinBag(spawnLocation: CGPoint(x: xTop, y: yTop), targetLocation: CGPoint(x: xBot, y: yBot))
+                }
+                else{
+                    coinBag = CoinBag(spawnLocation: CGPoint(x: xBot, y: yBot), targetLocation: CGPoint(x: xTop, y: yTop))
+                }
+            }
+            addChild(coinBag!)
+            nextBonueTime = Date().addingTimeInterval(bonusInterval)
+        }
+        // If msg is not empty, make it vanish after 3 seconds
+        if (msg.text != ""){
+            if msgVanishTime.timeIntervalSinceNow <= 0{
+                msg.text = ""
+            }
+        }
+        // If the cheat sequence matches the player button press order, give player 9999 coins one time
+        if (cheatSequence == cheatString && !cheatActivated){
+            GameManager.playerCoin += 9999
+            cheatString = ""
+            cheatActivated = true
+        }
+        // Update base wall hp and coin labels
         Coins.text = "Coins:" + String(GameManager.playerCoin)
-        basewallHP.text = "BaseWallHP:" + String(GameManager.baseHp)
-        
+        basewallHP.text = "Base Wall HP:" + String(GameManager.baseHp)
+        if (GameManager.gameState != "onGoing" && !enteringEndScene){
+            enteringEndScene = true
+            enterEndSceneTime = Date().addingTimeInterval(5)
+        }
+        // If game is over or won, go to EndScene
+        if (enteringEndScene && enterEndSceneTime.timeIntervalSinceNow <= 0){
+            enteringEndScene = false
+            let scene:SKScene = SKScene(fileNamed: "EndScene")!
+            scene.scaleMode = .aspectFill
+            self.view!.presentScene(scene)
+            self.removeAllActions()
+            self.removeAllChildren()
+            backgroundMusicPlayer?.stop()
+        }
     }
     
+    // The the message of msg label
+    func setMsg(msgContent: String){
+        msg.text = msgContent
+        msgVanishTime = Date().addingTimeInterval(3)
+    }
+    
+    // Build a brick wall at player pressed location
     func spawnBrickWall(location: CGPoint, index: Int){
         let brickWall = BrickWall(positionX: location.x, positionY: location.y, checkWallIndex: index)
         brickWalls.append(brickWall)
         addChild(brickWall)
-        turnOffBrickWallPlaceholders()
     }
     
-    func turnOffBrickWallPlaceholders(){
-        for brickWallPlaceholder in brickWallPlaceholders{
-            brickWallPlaceholder.isHidden = true
-            playerAction = ""
+    // Turn on all brick wall placeholders
+    func turnOnBrickWallPlaceholders(){
+        for index in 0..<brickWallPlaceholders.count{
+            if !GameManager.hasWallCheck[index]{
+                brickWallPlaceholders[index].isHidden = false
+            }
         }
     }
     
-    func resetWallButtonCheatCount(){
-        wallButtonCheat = 3
+    // Turn off all brick wall placeholders
+    func turnOffBrickWallPlaceholders(){
+        for brickWallPlaceholder in brickWallPlaceholders{
+            brickWallPlaceholder.isHidden = true
+            
+        }
     }
     
+    // Update the player press button order
+    func cheatStringUpdate(character: String){
+        if (cheatString.count >= 8){
+            cheatString = String(cheatString.suffix(7))
+        }
+        cheatString = cheatString + character
+    }
+    
+    // Turn on all defending tank placehoders
+    func turnOnDefTankPlaceholders(){
+        for index in 0..<defTankPlaceholders.count{
+            if !DefManager.hastankcheck[index]{
+                defTankPlaceholders[index].isHidden = false
+            }
+        }
+    }
+    
+    // Turn off all defending tank placehoders
+    func turnOffDefTankPlaceholders(){
+        for defTankPlaceHolder in defTankPlaceholders{
+            defTankPlaceHolder.isHidden = true
+        }
+    }
+    
+    // Set up all wall placeholders
     func setUpBrickWallPlaceholders(){
         var brickWallPlaceholder = BrickWallPlaceholder(positionX: GameManager.wallLocations[0].x, positionY: GameManager.wallLocations[0].y)
         brickWallPlaceholder.isHidden = true
@@ -662,7 +890,7 @@ class GameScene: SKScene {
         brickWallPlaceholders.append(brickWallPlaceholder)
     }
     
-    
+    // Set up all defending tank placeholders
     func setDefTankPlaceholders(){
         var defTankPlaceholder = DefTankPlaceHolder(positionX: DefManager.tankLocations[0].x, positionY: DefManager.tankLocations[0].y)
         defTankPlaceholder.isHidden = true
@@ -770,6 +998,7 @@ class GameScene: SKScene {
         defTankPlaceholders.append(defTankPlaceholder)
     }
     
+    // Set a defending tank at player pressed location
     func setDefTank (location: CGPoint, tankstyle: Int) {
         switch (tankstyle){
         case 1:
@@ -801,13 +1030,8 @@ class GameScene: SKScene {
         }
     }
     
-    func hidehole () {
-        for dtph in defTankPlaceholders{
-            dtph.isHidden = true}
-    }
-    
+    // Set up all static GameObjects
     func setUpStaticTiles(){
-        // ** Object initiation to be cahnged to using GameObject class
         var river = River(positionX: -75, positionY: (screenHeight!) / 2 - 75)
         addChild(river)
         river = River(positionX: 75, positionY: (screenHeight!) / 2 - 75)

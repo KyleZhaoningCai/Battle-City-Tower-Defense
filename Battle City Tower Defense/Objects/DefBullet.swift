@@ -1,14 +1,16 @@
-//
-//  DefBullet.swift
-//  Battle City Tower Defense
-//
-//  Created by Jason on 2020-02-15.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: DefBullet.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import SpriteKit
 import GameplayKit
 
+// The Defending Tank Bullet GameObject
 class DefBullet: GameObject
 {
     
@@ -36,6 +38,7 @@ class DefBullet: GameObject
         
     }
     
+    // Turn toward the target and move to it
     override func Start()
     {
         self.zPosition = 1

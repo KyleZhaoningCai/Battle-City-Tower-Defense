@@ -1,13 +1,15 @@
-//
-//  AppDelegate.swift
-//  Battle City Tower Defense
-//
-//  Created by Zhaoning Cai on 2020-02-08.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: AppDelegate.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import UIKit
 
+// The app delegate
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

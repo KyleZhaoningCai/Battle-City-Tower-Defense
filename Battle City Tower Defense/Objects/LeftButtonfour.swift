@@ -1,23 +1,24 @@
-//
-//  LeftButtonfour.swift
-//  Battle City Tower Defense
-//
-//  Created by Supreet on 2020-02-11.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
-
+/*
+ File Name: LeftButtonFour.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 import Foundation
 
 import SpriteKit
 import GameplayKit
 
+// The LeftButtonFour GameObject
 class LeftButtonFour: GameObject
 {
     
     //constructor
     init()
     {
-        super.init(imageString: "tankBTN4", initialScale: 2)
+        super.init(imageString: "TankBTN4", initialScale: 2)
         Start()
     }
     
@@ -33,7 +34,7 @@ class LeftButtonFour: GameObject
     
     override func Start()
     {
-        self.position = CGPoint(x: -250, y: -605)
+        self.position = CGPoint(x: -242, y: -620)
     }
     
     override func Update()

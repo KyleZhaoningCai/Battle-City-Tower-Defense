@@ -1,15 +1,17 @@
-//
-//  BOOM.swift
-//  Battle City Tower Defense
-//
-//  Created by Jason on 2020-02-12.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: BOOM.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import SpriteKit
 import GameplayKit
 import AVFoundation
 
+// The BOOM effect GameObject
 class BOOM: GameObject
 {
     var boomlocation: CGPoint?

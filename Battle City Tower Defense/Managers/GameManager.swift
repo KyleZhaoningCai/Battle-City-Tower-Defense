@@ -1,6 +1,16 @@
+/*
+ File Name: GameManager.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
+
 import SpriteKit
 import UIKit
 
+// This class stores global properties and variables
 class GameManager
 {
     public static var waypoints: [CGPoint] = []

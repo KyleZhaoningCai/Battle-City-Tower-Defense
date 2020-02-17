@@ -1,6 +1,17 @@
+/*
+ File Name: BrickWall.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
+
 import SpriteKit
 import GameplayKit
 
+
+// The player placed BrickWall GameObject
 class BrickWall: GameObject
 {
     
@@ -37,6 +48,7 @@ class BrickWall: GameObject
         
     }
     
+    // Reduce its own hp by certain amount
     func reductHp(amount: Int){
         hp -= amount
     }

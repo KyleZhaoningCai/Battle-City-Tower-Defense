@@ -1,23 +1,25 @@
-//
-//  Tank.swift
-//  Battle City Tower Defense
-//
-//  Created by Jason on 2020-02-11.
-//  Copyright © 2020 CentennialCollege. All rights reserved.
-//
+/*
+ File Name: Tank.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
 
 import SpriteKit
 
+// The defending tank GameObject
 class Tank: GameObject
 {
     
+    // Instance Members
     var waypoints: [CGPoint] = []
     var isStoppingPoints: [Bool] = []
     var targetPoints: [CGPoint] = []
     var hasWallIndexToCheck: [Int] = []
     var currentWaypoint = 0;
     var state: String = "waiting"
-    // "waiting" "firing"
     var stopOthers: Bool = false
     var tankDamage: Int = 0
     var tankHealth: Int = 999
@@ -58,6 +60,7 @@ class Tank: GameObject
         nextFireTime = Date()
     }
     
+    // If tank can fire, fires a bullet at target
     override func Update()
     {
         let loading = nextFireTime!.timeIntervalSinceNow
@@ -74,17 +77,18 @@ class Tank: GameObject
 
                     
                 }
-            } else if (state == "firing") {
-                
             }
         }
     }
     
+    // Fires a bullet at target, then set cooldown
     func fireBullet(target1: CGPoint, target2: CGPoint){
         if (nextFireTime!.timeIntervalSinceNow <= 0){
             let bullet = DefBullet(positionX: target1.x, positionY: target1.y, target: target2, damage: tankDamage)
             let gameScene: GameScene = self.parent as! GameScene
             gameScene.deftankBullets.append(bullet)
+            let fireSound = SKAction.playSoundFileNamed("fire", waitForCompletion: false)
+            gameScene.run(fireSound)
             gameScene.addChild(bullet)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
                 bullet.removeFromParent()
@@ -97,7 +101,7 @@ class Tank: GameObject
     }
     
     
-    
+    // Check squared distance
     func squaredDistance(point1: CGPoint, point2: CGPoint) -> CGFloat
     {
         let Xs: CGFloat = point2.x - point1.x
@@ -105,6 +109,7 @@ class Tank: GameObject
         return Xs * Xs + Ys * Ys
     }
     
+    // If enemy is within range, attack
     func squaredRadiusCheck(scene: SKScene, object1: GameObject, object2: GameObject) -> Void
     {
         

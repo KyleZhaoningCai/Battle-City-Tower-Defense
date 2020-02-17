@@ -1,6 +1,16 @@
+/*
+ File Name: Player.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
+
 import SpriteKit
 import GameplayKit
 
+// The player aircraft GameObject
 class Player: GameObject
 {
     var currentTask: String = ""
@@ -18,6 +28,7 @@ class Player: GameObject
         fatalError("init(coder:) has not been implemented")
     }
     
+    // Move to target location
     func Move()
     {
         self.removeAllActions()
@@ -32,12 +43,14 @@ class Player: GameObject
         }
     }
     
+    // Get distance between itself and the target location
     func getDistance() -> Double{
         let offset = CGPoint(x: targetLocation!.x - self.position.x, y: targetLocation!.y - self.position.y)
         let distance = sqrt(Double(offset.x * offset.x + offset.y * offset.y))
         return distance
     }
     
+    // Clear all actions and move back to default location
     func clearAction(){
         currentTask = ""
         targetLocation = CGPoint(x: 255, y: -425)

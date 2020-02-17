@@ -1,6 +1,16 @@
+/*
+ File Name: Bullet.swift
+ Author: Zhaoning Cai, Supreet Kaur, Jiansheng Sun
+ Student ID: 300817368, 301093932, 300997240
+ Date: Feb 16, 2020
+ App Description: Battle City Tower Defense
+ Version Information: v1.0
+ */
+
 import SpriteKit
 import GameplayKit
 
+// The Enemy Bullet GameObject
 class Bullet: GameObject
 {
     
@@ -28,6 +38,7 @@ class Bullet: GameObject
         
     }
     
+    // Turn toward the target location and move toward it
     override func Start()
     {
         self.zPosition = 1
